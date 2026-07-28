@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GraduationCap, ClipboardList, SendHorizonal } from "lucide-react";
+import { ClipboardList, SendHorizonal } from "lucide-react";
 import RequestForm from "./components/RequestForm";
 import SubmissionsList from "./components/SubmissionsList";
 import { loadSubmissions, saveSubmissions } from "./lib/submissions";
@@ -25,11 +25,14 @@ export default function App() {
     <div className="min-h-screen" style={{ backgroundColor: PALETTE.bg }}>
       <div className="max-w-3xl mx-auto p-6 md:p-10" style={{ fontFamily: "system-ui, sans-serif" }}>
         <header className="mb-8 flex items-start gap-3">
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: PALETTE.navy }}>
-            <GraduationCap size={24} style={{ color: PALETTE.gold }} aria-hidden="true" />
-          </div>
+          <img
+            src="/klentzman-logo.jpg"
+            alt="Klentzman Intermediate School Citgo Innovation Academy logo"
+            className="w-16 h-16 rounded-full object-cover shrink-0"
+            style={{ border: `2px solid ${PALETTE.border}` }}
+          />
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: PALETTE.gold }}>
+            <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: PALETTE.accent }}>
               Klentzman
             </p>
             <h1 className="text-2xl md:text-3xl font-extrabold mb-1" style={{ color: PALETTE.ink }}>
@@ -70,7 +73,7 @@ export default function App() {
             {submissions.length > 0 && (
               <span
                 className="text-[10px] font-bold px-1.5 rounded-full"
-                style={{ backgroundColor: tab === "track" ? PALETTE.gold : PALETTE.bg, color: tab === "track" ? PALETTE.navy : PALETTE.sub }}
+                style={{ backgroundColor: tab === "track" ? PALETTE.accent : PALETTE.bg, color: tab === "track" ? "#fff" : PALETTE.sub }}
               >
                 {submissions.length}
               </span>

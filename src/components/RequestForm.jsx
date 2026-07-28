@@ -236,7 +236,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="p-6 rounded-2xl mb-4" style={{ backgroundColor: "#fff", border: `1.5px solid ${PALETTE.border}` }}>
-        <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.gold }}>
+        <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.accent }}>
           Your information
         </h2>
         <div className="grid sm:grid-cols-2 gap-x-4">
@@ -290,7 +290,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
       </div>
 
       <div className="p-6 rounded-2xl mb-4" style={{ backgroundColor: "#fff", border: `1.5px solid ${PALETTE.border}` }}>
-        <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.gold }}>
+        <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.accent }}>
           What you're submitting
         </h2>
         <TypePicker selectedId={typeId} onSelect={selectType} error={errors.type} />
@@ -321,7 +321,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
       <button
         type="submit"
         className="flex items-center gap-2 text-sm font-bold px-5 py-3 rounded-lg focus:outline-none focus-visible:ring-2"
-        style={{ backgroundColor: PALETTE.gold, color: PALETTE.navy }}
+        style={{ backgroundColor: PALETTE.accent, color: "#fff" }}
       >
         <Send size={16} aria-hidden="true" /> Submit request
       </button>
