@@ -6,7 +6,7 @@ export const SUBMISSION_TYPES = [
     label: "Announcement",
     description: "News, reminders, or homepage banners",
     icon: Megaphone,
-    color: "#2563EB",
+    color: "#EA580C",
     titleField: "headline",
     fields: [
       { name: "headline", label: "Headline", type: "text", required: true, placeholder: "e.g. Early Dismissal on Friday" },
@@ -73,7 +73,7 @@ export const SUBMISSION_TYPES = [
   },
   {
     id: "other",
-    label: "Other Update",
+    label: "Other Update (including ParentSquare, etc.)",
     description: "Anything else on the site that needs a change",
     icon: PenSquare,
     color: "#64748B",
