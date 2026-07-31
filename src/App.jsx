@@ -3,7 +3,7 @@ import { ClipboardList, SendHorizonal } from "lucide-react";
 import RequestForm from "./components/RequestForm";
 import SubmissionsList from "./components/SubmissionsList";
 import { loadSubmissions, saveSubmissions } from "./lib/submissions";
-import { PALETTE } from "./theme";
+import { PALETTE, RING_STYLE } from "./theme";
 
 export default function App() {
   const [tab, setTab] = useState("submit");
@@ -54,6 +54,7 @@ export default function App() {
               backgroundColor: tab === "submit" ? PALETTE.navy : "#fff",
               color: tab === "submit" ? "#fff" : PALETTE.ink,
               border: `1.5px solid ${PALETTE.navy}`,
+              ...RING_STYLE,
             }}
           >
             <SendHorizonal size={15} aria-hidden="true" /> Submit a Request
@@ -67,6 +68,7 @@ export default function App() {
               backgroundColor: tab === "track" ? PALETTE.navy : "#fff",
               color: tab === "track" ? "#fff" : PALETTE.ink,
               border: `1.5px solid ${PALETTE.navy}`,
+              ...RING_STYLE,
             }}
           >
             <ClipboardList size={15} aria-hidden="true" /> Track Submissions

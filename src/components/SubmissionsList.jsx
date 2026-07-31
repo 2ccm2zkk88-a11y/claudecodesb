@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Search, Inbox } from "lucide-react";
 import { SUBMISSION_TYPES, STATUSES } from "../data/submissionTypes";
-import { PALETTE, CARD_SHADOW } from "../theme";
+import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 import StatusBadge from "./StatusBadge";
 
 function getTypeConfig(typeId) {
@@ -14,8 +14,8 @@ function getTitle(submission) {
   return (titleField && submission.fields[titleField]) || type?.label || "Submission";
 }
 
-const selectClass = "px-3 py-2 rounded-lg text-sm";
-const selectStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink };
+const selectClass = "px-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2";
+const selectStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, ...RING_STYLE };
 const resultCardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
 
 export default function SubmissionsList({ submissions, onStatusChange }) {
@@ -61,7 +61,7 @@ export default function SubmissionsList({ submissions, onStatusChange }) {
             placeholder="Search by reference, name, or title..."
             aria-label="Search submissions"
             className="w-full pl-9 pr-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2"
-            style={{ border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink }}
+            style={{ border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, ...RING_STYLE }}
           />
         </div>
         <select aria-label="Filter by status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className={selectClass} style={selectStyle}>
@@ -117,8 +117,8 @@ export default function SubmissionsList({ submissions, onStatusChange }) {
                       aria-label={`Update status for ${s.reference}`}
                       value={s.status}
                       onChange={(e) => onStatusChange(s.reference, e.target.value)}
-                      className="text-xs px-2 py-1 rounded-lg"
-                      style={{ border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink }}
+                      className="text-xs px-2 py-1 rounded-lg focus:outline-none focus-visible:ring-2"
+                      style={{ border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, ...RING_STYLE }}
                     >
                       {STATUSES.map((st) => (
                         <option key={st} value={st}>

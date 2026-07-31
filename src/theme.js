@@ -5,6 +5,7 @@ export const PALETTE = {
   card: "#FFFFFF",
   navy: "#0D2A5C",
   accent: "#2E5C90",
+  orange: "#E86D22",
   border: "#D9DFE7",
   cardBorder: "#FFFFFF",
   success: "#1F9D55",
@@ -13,3 +14,5 @@ export const PALETTE = {
 };
 
 export const CARD_SHADOW = "0 1px 3px rgba(13, 42, 92, 0.1), 0 1px 2px rgba(13, 42, 92, 0.05)";
+
+export const RING_STYLE = { "--tw-ring-color": `${PALETTE.orange}80` };

@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
-import { PALETTE, CARD_SHADOW } from "../theme";
+import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 
 const cardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
 
 const inputClass = "w-full px-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2 transition-colors";
-const inputStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, backgroundColor: "#fff" };
+const inputStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, backgroundColor: "#fff", ...RING_STYLE };
 
 function Field({ label, required, error, id, children }) {
   return (
@@ -111,6 +111,7 @@ function TypePicker({ selectedId, onSelect, error }) {
               style={{
                 border: `2px solid ${active ? type.color : PALETTE.border}`,
                 backgroundColor: active ? type.color + "12" : "#fff",
+                ...RING_STYLE,
               }}
             >
               <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: type.color + "20" }}>
@@ -219,14 +220,19 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
           {confirmation.priority === "urgent" ? "We'll take a look within 24-48 hours." : "We'll take a look within 3-5 business days."}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <button type="button" onClick={startNew} className="text-sm font-bold px-4 py-2 rounded-lg" style={{ backgroundColor: PALETTE.navy, color: "#fff" }}>
+          <button
+            type="button"
+            onClick={startNew}
+            className="text-sm font-bold px-4 py-2 rounded-lg focus:outline-none focus-visible:ring-2"
+            style={{ backgroundColor: PALETTE.navy, color: "#fff", ...RING_STYLE }}
+          >
             Submit another request
           </button>
           <button
             type="button"
             onClick={onViewTrack}
-            className="text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-1"
-            style={{ border: `1.5px solid ${PALETTE.navy}`, color: PALETTE.navy }}
+            className="text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-1 focus:outline-none focus-visible:ring-2"
+            style={{ border: `1.5px solid ${PALETTE.navy}`, color: PALETTE.navy, ...RING_STYLE }}
           >
             Track submissions <ArrowRight size={14} aria-hidden="true" />
           </button>
@@ -277,7 +283,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
                 aria-checked={active}
                 onClick={() => updateBase("priority", p.id)}
                 className="flex-1 text-left p-3 rounded-lg transition-colors focus:outline-none focus-visible:ring-2"
-                style={{ border: `2px solid ${active ? PALETTE.navy : PALETTE.border}`, backgroundColor: active ? PALETTE.navy + "0d" : "#fff" }}
+                style={{ border: `2px solid ${active ? PALETTE.navy : PALETTE.border}`, backgroundColor: active ? PALETTE.navy + "0d" : "#fff", ...RING_STYLE }}
               >
                 <p className="text-sm font-bold" style={{ color: PALETTE.ink }}>
                   {p.label}
@@ -323,7 +329,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
       <button
         type="submit"
         className="flex items-center gap-2 text-sm font-bold px-5 py-3 rounded-lg focus:outline-none focus-visible:ring-2"
-        style={{ backgroundColor: PALETTE.accent, color: "#fff" }}
+        style={{ backgroundColor: PALETTE.orange, color: "#fff", ...RING_STYLE }}
       >
         <Send size={16} aria-hidden="true" /> Submit request
       </button>
