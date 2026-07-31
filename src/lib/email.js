@@ -1,8 +1,11 @@
 import emailjs from "@emailjs/browser";
 
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+// EmailJS service/template IDs and public key are safe to ship client-side by design
+// (see https://www.emailjs.com/docs/sdk/installation) — env vars can still override these
+// for a future template/service change without a code edit.
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_84rtut4";
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_qrzexzp";
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "dphobgqfiSnw86q5o";
 
 export const NOTIFY_EMAILS = ["Leanna.niemann@aliefisd.net", "Joany.cardona@aliefisd.net", "sable.banks@aliefisd.net"];
 
