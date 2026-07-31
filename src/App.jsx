@@ -3,7 +3,7 @@ import { ClipboardList, SendHorizonal, ExternalLink } from "lucide-react";
 import RequestForm from "./components/RequestForm";
 import SubmissionsList from "./components/SubmissionsList";
 import { loadSubmissions, saveSubmissions } from "./lib/submissions";
-import { PALETTE, RING_STYLE } from "./theme";
+import { PALETTE, RING_STYLE, CARD_SHADOW } from "./theme";
 
 export default function App() {
   const [tab, setTab] = useState("submit");
@@ -101,6 +101,14 @@ export default function App() {
           <SubmissionsList submissions={submissions} onStatusChange={updateStatus} />
         )}
       </div>
+
+      <img
+        src="/tiger-mascot.jpg"
+        alt=""
+        aria-hidden="true"
+        className="hidden sm:block fixed bottom-4 right-4 w-32 md:w-40 rounded-2xl object-cover pointer-events-none"
+        style={{ border: `3px solid ${PALETTE.navy}`, boxShadow: CARD_SHADOW }}
+      />
     </div>
   );
 }
