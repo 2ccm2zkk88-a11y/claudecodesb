@@ -40,6 +40,29 @@ If email delivery ever fails (bad config, EmailJS outage, etc.), the request is 
 the confirmation screen will say the notification couldn't be sent so staff know to follow up
 directly.
 
+## Deploying to Firebase Hosting
+
+1. Create a project at [console.firebase.google.com](https://console.firebase.google.com) (or use
+   an existing one for the district).
+2. Install the CLI and log in from your machine:
+   ```
+   npm install -g firebase-tools
+   firebase login
+   ```
+3. Copy `.firebaserc.example` to `.firebaserc` and replace `your-firebase-project-id` with your
+   actual Firebase project ID.
+4. Build and deploy:
+   ```
+   npm run build
+   firebase deploy
+   ```
+   Firebase will print the live URL (`https://<project-id>.web.app`) when it finishes.
+5. Set the `VITE_EMAILJS_*` variables (see "Email notifications" above) in your `.env` file
+   *before* running `npm run build`, since Vite bakes them into the build at build time.
+
+Once live, that URL can be linked from or embedded in the district's existing site (e.g. as an
+embedded page in Google Sites) if it isn't the primary campus site itself.
+
 ## Data storage
 
 This app has no backend of its own. Submitted requests are stored in the submitting browser's
