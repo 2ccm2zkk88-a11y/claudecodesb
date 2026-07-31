@@ -224,7 +224,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
             type="button"
             onClick={startNew}
             className="text-sm font-bold px-4 py-2 rounded-lg focus:outline-none focus-visible:ring-2"
-            style={{ backgroundColor: PALETTE.navy, color: "#fff", ...RING_STYLE }}
+            style={{ backgroundColor: PALETTE.orange, color: "#fff", ...RING_STYLE }}
           >
             Submit another request
           </button>
