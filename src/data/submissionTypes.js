@@ -6,7 +6,7 @@ export const SUBMISSION_TYPES = [
     label: "Announcement",
     description: "News, reminders, or homepage banners",
     icon: Megaphone,
-    color: "#EA580C",
+    color: "#E86D22",
     titleField: "headline",
     fields: [
       { name: "headline", label: "Headline", type: "text", required: true, placeholder: "e.g. Early Dismissal on Friday" },
