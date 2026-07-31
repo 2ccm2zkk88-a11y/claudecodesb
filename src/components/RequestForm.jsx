@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
-import { PALETTE } from "../theme";
+import { PALETTE, CARD_SHADOW } from "../theme";
+
+const cardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
 
 const inputClass = "w-full px-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2 transition-colors";
 const inputStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, backgroundColor: "#fff" };
@@ -202,7 +204,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
 
   if (confirmation) {
     return (
-      <div className="p-6 rounded-2xl text-center" style={{ backgroundColor: "#fff", border: `1.5px solid ${PALETTE.border}` }}>
+      <div className="p-6 rounded-2xl text-center" style={cardStyle}>
         <CheckCircle2 size={36} style={{ color: PALETTE.success }} className="mx-auto mb-3" aria-hidden="true" />
         <h2 className="text-lg font-extrabold mb-1" style={{ color: PALETTE.ink }}>
           Request submitted
@@ -235,7 +237,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="p-6 rounded-2xl mb-4" style={{ backgroundColor: "#fff", border: `1.5px solid ${PALETTE.border}` }}>
+      <div className="p-6 rounded-2xl mb-4" style={cardStyle}>
         <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.accent }}>
           Your information
         </h2>
@@ -289,7 +291,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
         </div>
       </div>
 
-      <div className="p-6 rounded-2xl mb-4" style={{ backgroundColor: "#fff", border: `1.5px solid ${PALETTE.border}` }}>
+      <div className="p-6 rounded-2xl mb-4" style={cardStyle}>
         <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.accent }}>
           What you're submitting
         </h2>
@@ -304,7 +306,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
         )}
       </div>
 
-      <div className="p-6 rounded-2xl mb-4" style={{ backgroundColor: "#fff", border: `1.5px solid ${PALETTE.border}` }}>
+      <div className="p-6 rounded-2xl mb-4" style={cardStyle}>
         <Field label="Additional notes (optional)" id="field-notes">
           <textarea
             id="field-notes"

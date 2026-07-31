@@ -3,10 +3,13 @@ export const PALETTE = {
   ink: "#1A1A1E",
   sub: "#5B6472",
   card: "#FFFFFF",
-  navy: "#1C3E65",
+  navy: "#0D2A5C",
   accent: "#2E5C90",
   border: "#D9DFE7",
+  cardBorder: "#FFFFFF",
   success: "#1F9D55",
   warning: "#D97706",
   danger: "#DC2626",
 };
+
+export const CARD_SHADOW = "0 1px 3px rgba(13, 42, 92, 0.1), 0 1px 2px rgba(13, 42, 92, 0.05)";

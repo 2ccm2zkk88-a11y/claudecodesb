@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Search, Inbox } from "lucide-react";
 import { SUBMISSION_TYPES, STATUSES } from "../data/submissionTypes";
-import { PALETTE } from "../theme";
+import { PALETTE, CARD_SHADOW } from "../theme";
 import StatusBadge from "./StatusBadge";
 
 function getTypeConfig(typeId) {
@@ -16,6 +16,7 @@ function getTitle(submission) {
 
 const selectClass = "px-3 py-2 rounded-lg text-sm";
 const selectStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink };
+const resultCardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
 
 export default function SubmissionsList({ submissions, onStatusChange }) {
   const [query, setQuery] = useState("");
@@ -91,7 +92,7 @@ export default function SubmissionsList({ submissions, onStatusChange }) {
             const type = getTypeConfig(s.typeId);
             const Icon = type?.icon;
             return (
-              <li key={s.reference} className="p-4 rounded-xl" style={{ backgroundColor: "#fff", border: `1.5px solid ${PALETTE.border}` }}>
+              <li key={s.reference} className="p-4 rounded-xl" style={resultCardStyle}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
                     <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: type?.color + "20" }}>
