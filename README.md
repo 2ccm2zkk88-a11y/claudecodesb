@@ -1,16 +1,48 @@
-# React + Vite
+# Klentzman Website & Content Submission Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A staff-facing form for requesting announcements, events, photos, documents, and other updates
+for the campus website, plus a tracking view for submitted requests.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```
+npm install
+npm run dev
+```
 
-## React Compiler
+## Email notifications
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Submitted requests are emailed to `Leanna.niemann@aliefisd.net`, `Joany.cardona@aliefisd.net`,
+and `sable.banks@aliefisd.net` via [EmailJS](https://www.emailjs.com), which sends email directly
+from the browser — no backend server is required. Until it's configured, submissions are still
+saved in the browser (see "Data storage" below) but no email is sent.
 
-## Expanding the Oxlint configuration
+To turn on email delivery:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+1. Create a free EmailJS account at [emailjs.com](https://www.emailjs.com).
+2. Add an **Email Service** (connect the sending mailbox you want the notifications to come from)
+   and note its **Service ID**.
+3. Create an **Email Template**. In the template's "To Email" field, enter all three addresses
+   above separated by commas. In the template body, use these variables to show the submission
+   details: `{{reference}}`, `{{submission_type}}`, `{{requester_name}}`, `{{requester_email}}`,
+   `{{department}}`, `{{priority}}`, `{{needed_by}}`, `{{notes}}`, `{{details}}`. Note the
+   **Template ID**.
+4. Find your **Public Key** under Account > General.
+5. Copy `.env.example` to `.env` and fill in the three values:
+   ```
+   VITE_EMAILJS_SERVICE_ID=...
+   VITE_EMAILJS_TEMPLATE_ID=...
+   VITE_EMAILJS_PUBLIC_KEY=...
+   ```
+6. Restart the dev server (or rebuild) so Vite picks up the new environment variables.
+
+If email delivery ever fails (bad config, EmailJS outage, etc.), the request is still recorded —
+the confirmation screen will say the notification couldn't be sent so staff know to follow up
+directly.
+
+## Data storage
+
+This app has no backend of its own. Submitted requests are stored in the submitting browser's
+`localStorage`, which is how the "Track Submissions" tab works. This means submissions are not
+shared across devices or visible to anyone else unless the email notification (above) is
+configured and delivered.

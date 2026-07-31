@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
+import { sendSubmissionEmail, NOTIFY_EMAILS } from "../lib/email";
 import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 
 const cardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
@@ -164,6 +165,8 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
   const [typeValues, setTypeValues] = useState({});
   const [errors, setErrors] = useState({});
   const [confirmation, setConfirmation] = useState(null);
+  const [emailResult, setEmailResult] = useState(null);
+  const [sending, setSending] = useState(false);
 
   const typeConfig = SUBMISSION_TYPES.find((t) => t.id === typeId);
 
@@ -176,7 +179,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     setErrors((prev) => ({ ...prev, type: undefined }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate(base, typeConfig, typeValues);
     setErrors(validationErrors);
@@ -192,6 +195,11 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
       submittedAt: new Date().toISOString(),
     };
     onSubmit(submission);
+
+    setSending(true);
+    const result = await sendSubmissionEmail(submission, typeConfig.label);
+    setSending(false);
+    setEmailResult(result);
     setConfirmation(submission);
   };
 
@@ -201,6 +209,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     setTypeValues({});
     setErrors({});
     setConfirmation(null);
+    setEmailResult(null);
   };
 
   if (confirmation) {
@@ -216,9 +225,18 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
             {confirmation.reference}
           </span>
         </p>
-        <p className="text-sm mb-6" style={{ color: PALETTE.sub }}>
+        <p className="text-sm mb-1" style={{ color: PALETTE.sub }}>
           {confirmation.priority === "urgent" ? "We'll take a look within 24-48 hours." : "We'll take a look within 3-5 business days."}
         </p>
+        {emailResult?.sent ? (
+          <p className="text-xs mb-6" style={{ color: PALETTE.success }}>
+            Emailed to {NOTIFY_EMAILS.join(", ")}
+          </p>
+        ) : (
+          <p className="text-xs mb-6" style={{ color: PALETTE.warning }}>
+            Saved, but the email notification couldn't be sent. Please follow up directly with the webmaster team.
+          </p>
+        )}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
@@ -328,10 +346,11 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
 
       <button
         type="submit"
-        className="flex items-center gap-2 text-sm font-bold px-5 py-3 rounded-lg focus:outline-none focus-visible:ring-2"
+        disabled={sending}
+        className="flex items-center gap-2 text-sm font-bold px-5 py-3 rounded-lg focus:outline-none focus-visible:ring-2 disabled:opacity-60"
         style={{ backgroundColor: PALETTE.orange, color: "#fff", ...RING_STYLE }}
       >
-        <Send size={16} aria-hidden="true" /> Submit request
+        <Send size={16} aria-hidden="true" /> {sending ? "Sending..." : "Submit request"}
       </button>
     </form>
   );
