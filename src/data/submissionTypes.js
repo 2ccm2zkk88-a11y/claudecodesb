@@ -86,19 +86,7 @@ export const SUBMISSION_TYPES = [
   },
 ];
 
-export const DEPARTMENTS = [
-  "Administration",
-  "Front Office",
-  "Pre-K / Kindergarten",
-  "1st - 2nd Grade",
-  "3rd - 4th Grade",
-  "5th Grade",
-  "Counseling",
-  "Special Programs",
-  "Athletics / Fine Arts",
-  "PTA / PTO",
-  "Other",
-];
+export const DEPARTMENTS = ["Administration", "Front Office", "5th Grade", "6th Grade", "Counseling", "Special Programs", "PTO", "Other"];
 
 export const PRIORITIES = [
   { id: "standard", label: "Standard", description: "3-5 business days" },
