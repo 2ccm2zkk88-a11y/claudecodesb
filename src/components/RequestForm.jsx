@@ -1,44 +1,13 @@
-import { useRef, useState } from "react";
-import { Send, CheckCircle2, ArrowRight, Paperclip, X } from "lucide-react";
+import { useState } from "react";
+import { Send, CheckCircle2, ArrowRight, Mail } from "lucide-react";
 import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
-import { sendSubmissionEmail, NOTIFY_EMAILS } from "../lib/email";
+import { sendSubmissionEmail } from "../lib/email";
 import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 
 const cardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
 
-const MAX_FILES = 3;
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB per file, a typical web-form limit that also stays well under email attachment caps
-
-function formatFileSize(bytes) {
-  if (bytes < 1024 * 1024) return `${Math.ceil(bytes / 1024)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-function formatDetails(typeValues) {
-  return Object.entries(typeValues)
-    .filter(([, value]) => value !== "" && value !== false && value != null)
-    .map(([key, value]) => `${key}: ${value}`)
-    .join("\n");
-}
-
-function setHiddenFormValues(form, params) {
-  Object.entries(params).forEach(([name, value]) => {
-    const el = form.elements.namedItem(name);
-    if (el) el.value = value ?? "";
-  });
-}
-
-function setHiddenFileInputs(form, files) {
-  [1, 2, 3].forEach((n) => {
-    const input = form.elements.namedItem(`attachment_${n}`);
-    if (!input) return;
-    const dataTransfer = new DataTransfer();
-    const file = files[n - 1];
-    if (file) dataTransfer.items.add(file);
-    input.files = dataTransfer.files;
-  });
-}
+const ATTACHMENT_EMAILS = ["srbanks@ga.aliefisd.net", "lrnieman@ga.aliefisd.net"];
 
 const inputClass = "w-full px-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2 transition-colors";
 const inputStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, backgroundColor: "#fff", ...RING_STYLE };
@@ -174,7 +143,7 @@ function TypePicker({ selectedId, onSelect, error }) {
 
 const initialBase = { name: "", email: "", department: "", priority: "standard", neededBy: "", notes: "" };
 
-function validate(base, typeConfig, typeValues, files) {
+function validate(base, typeConfig, typeValues) {
   const errors = {};
   if (!base.name.trim()) errors.name = "Enter your name.";
   if (!base.email.trim()) errors.email = "Enter your email.";
@@ -189,8 +158,6 @@ function validate(base, typeConfig, typeValues, files) {
       }
     });
   }
-  if (files.length > MAX_FILES) errors.files = `You can attach up to ${MAX_FILES} files.`;
-  else if (files.some((f) => f.size > MAX_FILE_SIZE)) errors.files = `Each file must be ${formatFileSize(MAX_FILE_SIZE)} or smaller.`;
   return errors;
 }
 
@@ -202,8 +169,6 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
   const [confirmation, setConfirmation] = useState(null);
   const [emailResult, setEmailResult] = useState(null);
   const [sending, setSending] = useState(false);
-  const [files, setFiles] = useState([]);
-  const emailFormRef = useRef(null);
 
   const typeConfig = SUBMISSION_TYPES.find((t) => t.id === typeId);
 
@@ -216,18 +181,9 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     setErrors((prev) => ({ ...prev, type: undefined }));
   };
 
-  const addFiles = (fileList) => {
-    setFiles((prev) => [...prev, ...Array.from(fileList)].slice(0, MAX_FILES));
-    setErrors((prev) => ({ ...prev, files: undefined }));
-  };
-
-  const removeFile = (index) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validate(base, typeConfig, typeValues, files);
+    const validationErrors = validate(base, typeConfig, typeValues);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
@@ -242,22 +198,8 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     };
     onSubmit(submission);
 
-    setHiddenFormValues(emailFormRef.current, {
-      to_emails: NOTIFY_EMAILS.join(", "),
-      reference,
-      submission_type: typeConfig.label,
-      requester_name: base.name,
-      requester_email: base.email,
-      department: base.department,
-      priority: base.priority,
-      needed_by: base.neededBy || "Not specified",
-      notes: base.notes || "None",
-      details: formatDetails(typeValues),
-    });
-    setHiddenFileInputs(emailFormRef.current, files);
-
     setSending(true);
-    const result = await sendSubmissionEmail(emailFormRef.current);
+    const result = await sendSubmissionEmail(submission, typeConfig.label);
     setSending(false);
     setEmailResult(result);
     setConfirmation(submission);
@@ -270,7 +212,6 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     setErrors({});
     setConfirmation(null);
     setEmailResult(null);
-    setFiles([]);
   };
 
   if (confirmation) {
@@ -290,21 +231,21 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
           {confirmation.priority === "urgent" ? "We'll take a look within 24-48 hours." : "We'll take a look within 3-5 business days."}
         </p>
         {emailResult?.sent ? (
-          <p className="text-xs mb-1" style={{ color: PALETTE.success }}>
+          <p className="text-xs mb-3" style={{ color: PALETTE.success }}>
             Emailed to Klentzman Tech Team, thank you!
           </p>
         ) : (
-          <p className="text-xs mb-1" style={{ color: PALETTE.warning }}>
+          <p className="text-xs mb-3" style={{ color: PALETTE.warning }}>
             Saved, but the email notification couldn't be sent. Please follow up directly with the webmaster team.
           </p>
         )}
-        {files.length > 0 && (
-          <p className="text-xs mb-6" style={{ color: emailResult?.sent ? PALETTE.success : PALETTE.warning }}>
-            {emailResult?.sent ? "Attached: " : "Not attached (email failed to send): "}
-            {files.map((f) => f.name).join(", ")}
-          </p>
-        )}
-        {files.length === 0 && <div className="mb-6" />}
+        <p className="text-xs mb-6" style={{ color: PALETTE.sub }}>
+          Have a file to attach? Email it to {ATTACHMENT_EMAILS.join(" and ")} with reference number{" "}
+          <span className="font-mono font-bold" style={{ color: PALETTE.ink }}>
+            {confirmation.reference}
+          </span>{" "}
+          in the subject line.
+        </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
@@ -328,23 +269,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
   }
 
   return (
-    <>
-      <form ref={emailFormRef} className="hidden" aria-hidden="true">
-        <input type="hidden" name="to_emails" />
-        <input type="hidden" name="reference" />
-        <input type="hidden" name="submission_type" />
-        <input type="hidden" name="requester_name" />
-        <input type="hidden" name="requester_email" />
-        <input type="hidden" name="department" />
-        <input type="hidden" name="priority" />
-        <input type="hidden" name="needed_by" />
-        <input type="hidden" name="notes" />
-        <input type="hidden" name="details" />
-        <input type="file" name="attachment_1" />
-        <input type="file" name="attachment_2" />
-        <input type="file" name="attachment_3" />
-      </form>
-      <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate>
       <div className="p-6 rounded-2xl mb-4" style={cardStyle}>
         <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.accent }}>
           Your information
@@ -415,6 +340,18 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
       </div>
 
       <div className="p-6 rounded-2xl mb-4" style={cardStyle}>
+        <div
+          className="flex items-start gap-2.5 p-3.5 rounded-xl mb-4"
+          style={{ backgroundColor: PALETTE.orange + "12", border: `1.5px solid ${PALETTE.orange}55` }}
+        >
+          <Mail size={16} style={{ color: PALETTE.orange }} className="shrink-0 mt-0.5" aria-hidden="true" />
+          <p className="text-xs leading-relaxed" style={{ color: PALETTE.ink }}>
+            <span className="font-bold">Have a file to attach?</span> This form doesn't accept uploads. Email up to 3 files
+            directly to <span className="font-semibold">{ATTACHMENT_EMAILS.join(" and ")}</span>, and include your reference
+            number (shown after you submit) in the subject line so we can match them to this request.
+          </p>
+        </div>
+
         <Field label="Additional notes (optional)" id="field-notes">
           <textarea
             id="field-notes"
@@ -426,69 +363,6 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
             placeholder="Anything else the webmaster should know"
           />
         </Field>
-
-        <label className="block text-sm font-semibold mb-1" style={{ color: PALETTE.ink }}>
-          Attach files (optional)
-        </label>
-        <label
-          htmlFor="field-files"
-          className="inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg cursor-pointer focus-within:ring-2"
-          style={{ border: `1.5px solid ${PALETTE.navy}`, color: PALETTE.navy, ...RING_STYLE }}
-        >
-          <Paperclip size={15} aria-hidden="true" /> Upload files
-          <input
-            id="field-files"
-            type="file"
-            multiple
-            accept="image/*,.pdf,.doc,.docx"
-            className="sr-only"
-            onChange={(e) => {
-              addFiles(e.target.files);
-              e.target.value = "";
-            }}
-          />
-        </label>
-        <p className="text-xs mt-1.5" style={{ color: PALETTE.sub }}>
-          Up to {MAX_FILES} files, {formatFileSize(MAX_FILE_SIZE)} each. Images, PDFs, and Word docs work best.
-        </p>
-        {errors.files && (
-          <p className="text-xs mt-1" style={{ color: PALETTE.danger }}>
-            {errors.files}
-          </p>
-        )}
-        {files.length > 0 && (
-          <>
-            <p className="text-xs font-semibold mt-3 mb-2 flex items-center gap-1" style={{ color: PALETTE.success }}>
-              <CheckCircle2 size={14} aria-hidden="true" />
-              {files.length} file{files.length > 1 ? "s" : ""} ready to attach
-            </p>
-            <ul className="flex flex-col gap-2">
-              {files.map((file, i) => (
-                <li
-                  key={`${file.name}-${i}`}
-                  className="flex items-center justify-between gap-2 text-sm px-3 py-2 rounded-lg"
-                  style={{ backgroundColor: PALETTE.bg + "0d", border: `1.5px solid ${PALETTE.border}` }}
-                >
-                  <span className="flex items-center gap-2 truncate" style={{ color: PALETTE.ink }}>
-                    <CheckCircle2 size={14} style={{ color: PALETTE.success }} className="shrink-0" aria-hidden="true" />
-                    <span className="truncate">
-                      {file.name} <span style={{ color: PALETTE.sub }}>({formatFileSize(file.size)})</span>
-                    </span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => removeFile(i)}
-                    aria-label={`Remove ${file.name}`}
-                    className="shrink-0 focus:outline-none focus-visible:ring-2 rounded"
-                    style={{ color: PALETTE.sub, ...RING_STYLE }}
-                  >
-                    <X size={16} aria-hidden="true" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
       </div>
 
       <button
@@ -499,7 +373,6 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
       >
         <Send size={16} aria-hidden="true" /> {sending ? "Sending..." : "Submit request"}
       </button>
-      </form>
-    </>
+    </form>
   );
 }

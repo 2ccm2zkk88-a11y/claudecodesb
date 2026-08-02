@@ -42,16 +42,10 @@ directly.
 
 ### File attachments
 
-Staff can attach up to 3 files (5MB each) when submitting a request. The app sends these using
-EmailJS's `sendForm` method (its documented mechanism for real file attachments — a plain JSON
-`send()` call cannot carry files). For attachments to actually arrive, your EmailJS template
-**must** have three **Attachment**-type variables named exactly `attachment_1`, `attachment_2`,
-and `attachment_3` (in the template editor: Attachments > Add Attachment > Dynamic from parameter,
-using those exact names). Attachments are a paid-plan feature on EmailJS — if you're on the free
-plan, files will be silently dropped even though the rest of the email sends fine. If a test
-submission with a file doesn't show an attachment on arrival, check in this order: (1) the EmailJS
-plan supports attachments at all, (2) the template has all three `attachment_1/2/3` variables
-configured, (3) the file is under your plan's size limit (separate from this app's 5MB check).
+The form itself doesn't accept file uploads — EmailJS attachments require the sending EmailJS
+plan to support them, which wasn't reliable enough here. Instead, the form tells staff to email
+files directly to `srbanks@ga.aliefisd.net` and `lrnieman@ga.aliefisd.net`, referencing the
+reference number shown on the confirmation screen so the files can be matched to the request.
 
 ## Deploying to Firebase Hosting
 
