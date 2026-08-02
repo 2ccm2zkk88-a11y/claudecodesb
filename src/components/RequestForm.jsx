@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { Send, CheckCircle2, ArrowRight } from "lucide-react";
+import { Send, CheckCircle2, ArrowRight, Paperclip, X } from "lucide-react";
 import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
 import { sendSubmissionEmail } from "../lib/email";
 import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 
 const cardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
+
+const MAX_FILES = 3;
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB per file, a typical web-form limit that also stays well under email attachment caps
+
+function formatFileSize(bytes) {
+  if (bytes < 1024 * 1024) return `${Math.ceil(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 const inputClass = "w-full px-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2 transition-colors";
 const inputStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, backgroundColor: "#fff", ...RING_STYLE };
@@ -141,7 +149,7 @@ function TypePicker({ selectedId, onSelect, error }) {
 
 const initialBase = { name: "", email: "", department: "", priority: "standard", neededBy: "", notes: "" };
 
-function validate(base, typeConfig, typeValues) {
+function validate(base, typeConfig, typeValues, files) {
   const errors = {};
   if (!base.name.trim()) errors.name = "Enter your name.";
   if (!base.email.trim()) errors.email = "Enter your email.";
@@ -156,6 +164,8 @@ function validate(base, typeConfig, typeValues) {
       }
     });
   }
+  if (files.length > MAX_FILES) errors.files = `You can attach up to ${MAX_FILES} files.`;
+  else if (files.some((f) => f.size > MAX_FILE_SIZE)) errors.files = `Each file must be ${formatFileSize(MAX_FILE_SIZE)} or smaller.`;
   return errors;
 }
 
@@ -167,6 +177,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
   const [confirmation, setConfirmation] = useState(null);
   const [emailResult, setEmailResult] = useState(null);
   const [sending, setSending] = useState(false);
+  const [files, setFiles] = useState([]);
 
   const typeConfig = SUBMISSION_TYPES.find((t) => t.id === typeId);
 
@@ -179,9 +190,18 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     setErrors((prev) => ({ ...prev, type: undefined }));
   };
 
+  const addFiles = (fileList) => {
+    setFiles((prev) => [...prev, ...Array.from(fileList)].slice(0, MAX_FILES));
+    setErrors((prev) => ({ ...prev, files: undefined }));
+  };
+
+  const removeFile = (index) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validate(base, typeConfig, typeValues);
+    const validationErrors = validate(base, typeConfig, typeValues, files);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
@@ -197,7 +217,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     onSubmit(submission);
 
     setSending(true);
-    const result = await sendSubmissionEmail(submission, typeConfig.label);
+    const result = await sendSubmissionEmail(submission, typeConfig.label, files);
     setSending(false);
     setEmailResult(result);
     setConfirmation(submission);
@@ -210,6 +230,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     setErrors({});
     setConfirmation(null);
     setEmailResult(null);
+    setFiles([]);
   };
 
   if (confirmation) {
@@ -342,6 +363,60 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
             placeholder="Anything else the webmaster should know"
           />
         </Field>
+
+        <label className="block text-sm font-semibold mb-1" style={{ color: PALETTE.ink }}>
+          Attach files (optional)
+        </label>
+        <label
+          htmlFor="field-files"
+          className="inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg cursor-pointer focus-within:ring-2"
+          style={{ border: `1.5px solid ${PALETTE.navy}`, color: PALETTE.navy, ...RING_STYLE }}
+        >
+          <Paperclip size={15} aria-hidden="true" /> Upload files
+          <input
+            id="field-files"
+            type="file"
+            multiple
+            accept="image/*,.pdf,.doc,.docx"
+            className="sr-only"
+            onChange={(e) => {
+              addFiles(e.target.files);
+              e.target.value = "";
+            }}
+          />
+        </label>
+        <p className="text-xs mt-1.5" style={{ color: PALETTE.sub }}>
+          Up to {MAX_FILES} files, {formatFileSize(MAX_FILE_SIZE)} each. Images, PDFs, and Word docs work best.
+        </p>
+        {errors.files && (
+          <p className="text-xs mt-1" style={{ color: PALETTE.danger }}>
+            {errors.files}
+          </p>
+        )}
+        {files.length > 0 && (
+          <ul className="mt-3 flex flex-col gap-2">
+            {files.map((file, i) => (
+              <li
+                key={`${file.name}-${i}`}
+                className="flex items-center justify-between gap-2 text-sm px-3 py-2 rounded-lg"
+                style={{ backgroundColor: PALETTE.bg + "0d", border: `1.5px solid ${PALETTE.border}` }}
+              >
+                <span className="truncate" style={{ color: PALETTE.ink }}>
+                  {file.name} <span style={{ color: PALETTE.sub }}>({formatFileSize(file.size)})</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeFile(i)}
+                  aria-label={`Remove ${file.name}`}
+                  className="shrink-0 focus:outline-none focus-visible:ring-2 rounded"
+                  style={{ color: PALETTE.sub, ...RING_STYLE }}
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <button

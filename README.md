@@ -40,6 +40,16 @@ If email delivery ever fails (bad config, EmailJS outage, etc.), the request is 
 the confirmation screen will say the notification couldn't be sent so staff know to follow up
 directly.
 
+### File attachments
+
+Staff can attach up to 3 files (5MB each) when submitting a request. For these to actually arrive
+as email attachments, your EmailJS template needs three **Attachment**-type variables named
+`attachment_1`, `attachment_2`, and `attachment_3` (in the template editor: Attachments > Add
+Attachment > Dynamic from parameter, using those exact names). Attachments are a paid-plan feature
+on EmailJS — check your plan's attachment size limits, since very large files may be silently
+dropped or cause the send to fail even though they pass the app's 5MB check. If a request comes in
+with no visible attachment, that's the first thing to check.
+
 ## Deploying to Firebase Hosting
 
 1. Create a project at [console.firebase.google.com](https://console.firebase.google.com) (or use

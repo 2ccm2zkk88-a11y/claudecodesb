@@ -16,7 +16,7 @@ function formatDetails(submission) {
     .join("\n");
 }
 
-export async function sendSubmissionEmail(submission, typeLabel) {
+export async function sendSubmissionEmail(submission, typeLabel, files = []) {
   if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
     console.warn("EmailJS is not configured (missing VITE_EMAILJS_* env vars) — skipping email notification.");
     return { sent: false, reason: "not_configured" };
@@ -34,6 +34,11 @@ export async function sendSubmissionEmail(submission, typeLabel) {
     notes: submission.notes || "None",
     details: formatDetails(submission),
   };
+
+  // Requires attachment_1/2/3 variables to be configured as attachments in the EmailJS template.
+  files.slice(0, 3).forEach((file, i) => {
+    templateParams[`attachment_${i + 1}`] = file;
+  });
 
   try {
     await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, { publicKey: PUBLIC_KEY });
