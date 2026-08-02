@@ -3,7 +3,7 @@ import { ClipboardList, SendHorizonal, ExternalLink } from "lucide-react";
 import RequestForm from "./components/RequestForm";
 import SubmissionsList from "./components/SubmissionsList";
 import { loadSubmissions, saveSubmissions } from "./lib/submissions";
-import { PALETTE, RING_STYLE, CARD_SHADOW } from "./theme";
+import { PALETTE, RING_STYLE } from "./theme";
 
 export default function App() {
   const [tab, setTab] = useState("submit");
@@ -29,16 +29,16 @@ export default function App() {
             src="/klentzman-logo.jpg"
             alt="Klentzman Intermediate School Citgo Innovation Academy logo"
             className="w-16 h-16 rounded-full object-cover shrink-0"
-            style={{ border: `2px solid ${PALETTE.border}` }}
+            style={{ border: `2px solid ${PALETTE.cardBorder}` }}
           />
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: PALETTE.accent }}>
+            <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: PALETTE.orange }}>
               Klentzman
             </p>
-            <h1 className="text-2xl md:text-3xl font-extrabold mb-1" style={{ color: PALETTE.ink }}>
+            <h1 className="text-2xl md:text-3xl font-extrabold mb-1" style={{ color: PALETTE.onBg }}>
               Website & Content Submission Hub
             </h1>
-            <p className="text-sm max-w-xl" style={{ color: PALETTE.sub }}>
+            <p className="text-sm max-w-xl" style={{ color: PALETTE.onBgMuted }}>
               Request announcements, events, photos, documents, and other updates for the campus website in one place.
             </p>
           </div>
@@ -76,7 +76,7 @@ export default function App() {
               {submissions.length > 0 && (
                 <span
                   className="text-[10px] font-bold px-1.5 rounded-full"
-                  style={{ backgroundColor: tab === "track" ? PALETTE.accent : PALETTE.bg, color: tab === "track" ? "#fff" : PALETTE.sub }}
+                  style={{ backgroundColor: tab === "track" ? PALETTE.accent : PALETTE.onBgSurface, color: tab === "track" ? "#fff" : PALETTE.onBgMuted }}
                 >
                   {submissions.length}
                 </span>
@@ -103,11 +103,19 @@ export default function App() {
       </div>
 
       <img
-        src="/tiger-mascot.jpg"
+        src="/tiger-cutout.webp"
         alt=""
         aria-hidden="true"
-        className="hidden sm:block fixed bottom-4 right-4 w-32 md:w-40 rounded-2xl object-cover pointer-events-none"
-        style={{ border: `3px solid ${PALETTE.navy}`, boxShadow: CARD_SHADOW }}
+        className="hidden sm:block fixed pointer-events-none select-none"
+        style={{
+          bottom: "-2%",
+          right: "-2%",
+          width: "clamp(220px, 35vw, 620px)",
+          height: "auto",
+          filter: "drop-shadow(0 12px 20px rgba(13, 42, 92, 0.45))",
+          maskImage: "linear-gradient(120deg, transparent 2%, rgba(0,0,0,0.5) 30%, black 55%)",
+          WebkitMaskImage: "linear-gradient(120deg, transparent 2%, rgba(0,0,0,0.5) 30%, black 55%)",
+        }}
       />
     </div>
   );

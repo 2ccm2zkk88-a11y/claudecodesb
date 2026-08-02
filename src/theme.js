@@ -1,5 +1,8 @@
 export const PALETTE = {
-  bg: "#F3F5F9",
+  bg: "#0D2A5C",
+  onBg: "#FFFFFF",
+  onBgMuted: "#B9C4D6",
+  onBgSurface: "rgba(255, 255, 255, 0.1)",
   ink: "#1A1A1E",
   sub: "#5B6472",
   card: "#FFFFFF",
