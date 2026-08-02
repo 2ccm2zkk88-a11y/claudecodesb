@@ -28,8 +28,8 @@ export default function App() {
           <img
             src="/klentzman-logo.jpg"
             alt="Klentzman Intermediate School Citgo Innovation Academy logo"
-            className="w-16 h-16 rounded-full object-cover shrink-0"
-            style={{ border: `2px solid ${PALETTE.cardBorder}` }}
+            className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover shrink-0"
+            style={{ border: `3px solid ${PALETTE.cardBorder}` }}
           />
           <div>
             <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: PALETTE.orange }}>
@@ -45,43 +45,31 @@ export default function App() {
         </header>
 
         <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
-          <nav className="flex gap-2" role="tablist" aria-label="Hub sections">
+          <nav className="flex gap-2" aria-label="Hub sections">
             <button
-              role="tab"
-              aria-selected={tab === "submit"}
-              onClick={() => setTab("submit")}
+              onClick={() => setTab(tab === "submit" ? "track" : "submit")}
               className="flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2"
               style={{
-                backgroundColor: tab === "submit" ? PALETTE.navy : "#fff",
-                color: tab === "submit" ? "#fff" : PALETTE.ink,
-                border: `1.5px solid ${tab === "submit" ? PALETTE.cardBorder : PALETTE.navy}`,
-                boxShadow: tab === "submit" ? CARD_SHADOW : "none",
+                backgroundColor: "#fff",
+                color: PALETTE.navy,
+                border: `1.5px solid ${PALETTE.navy}`,
+                boxShadow: CARD_SHADOW,
                 ...RING_STYLE,
               }}
             >
-              <SendHorizonal size={15} aria-hidden="true" /> Submit a Request
-            </button>
-            <button
-              role="tab"
-              aria-selected={tab === "track"}
-              onClick={() => setTab("track")}
-              className="flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2"
-              style={{
-                backgroundColor: tab === "track" ? PALETTE.navy : "#fff",
-                color: tab === "track" ? "#fff" : PALETTE.ink,
-                border: `1.5px solid ${tab === "track" ? PALETTE.cardBorder : PALETTE.navy}`,
-                boxShadow: tab === "track" ? CARD_SHADOW : "none",
-                ...RING_STYLE,
-              }}
-            >
-              <ClipboardList size={15} aria-hidden="true" /> Track Submissions
-              {submissions.length > 0 && (
-                <span
-                  className="text-[10px] font-bold px-1.5 rounded-full"
-                  style={{ backgroundColor: tab === "track" ? PALETTE.accent : PALETTE.onBgSurface, color: tab === "track" ? "#fff" : PALETTE.onBgMuted }}
-                >
-                  {submissions.length}
-                </span>
+              {tab === "submit" ? (
+                <>
+                  <ClipboardList size={15} aria-hidden="true" /> Track Submissions
+                  {submissions.length > 0 && (
+                    <span className="text-[10px] font-bold px-1.5 rounded-full" style={{ backgroundColor: PALETTE.accent, color: "#fff" }}>
+                      {submissions.length}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <>
+                  <SendHorizonal size={15} aria-hidden="true" /> Submit a Request
+                </>
               )}
             </button>
           </nav>
