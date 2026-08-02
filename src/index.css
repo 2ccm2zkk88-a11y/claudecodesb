@@ -3,3 +3,7 @@
 body {
   margin: 0;
 }
+
+.track-search::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}

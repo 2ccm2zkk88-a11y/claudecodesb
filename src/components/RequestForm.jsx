@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
-import { sendSubmissionEmail, NOTIFY_EMAILS } from "../lib/email";
+import { sendSubmissionEmail } from "../lib/email";
 import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 
 const cardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
@@ -230,7 +230,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
         </p>
         {emailResult?.sent ? (
           <p className="text-xs mb-6" style={{ color: PALETTE.success }}>
-            Emailed to {NOTIFY_EMAILS.join(", ")}
+            Emailed to Klentzman Tech Team, thank you!
           </p>
         ) : (
           <p className="text-xs mb-6" style={{ color: PALETTE.warning }}>

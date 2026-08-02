@@ -3,7 +3,7 @@ import { ClipboardList, SendHorizonal, ExternalLink } from "lucide-react";
 import RequestForm from "./components/RequestForm";
 import SubmissionsList from "./components/SubmissionsList";
 import { loadSubmissions, saveSubmissions } from "./lib/submissions";
-import { PALETTE, RING_STYLE } from "./theme";
+import { PALETTE, RING_STYLE, CARD_SHADOW } from "./theme";
 
 export default function App() {
   const [tab, setTab] = useState("submit");
@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: PALETTE.bg }}>
-      <div className="max-w-3xl mx-auto p-6 md:p-10" style={{ fontFamily: "system-ui, sans-serif" }}>
+      <div className="max-w-3xl mx-auto p-6 md:p-10 relative z-10" style={{ fontFamily: "system-ui, sans-serif" }}>
         <header className="mb-8 flex items-start gap-3">
           <img
             src="/klentzman-logo.jpg"
@@ -54,7 +54,8 @@ export default function App() {
               style={{
                 backgroundColor: tab === "submit" ? PALETTE.navy : "#fff",
                 color: tab === "submit" ? "#fff" : PALETTE.ink,
-                border: `1.5px solid ${PALETTE.navy}`,
+                border: `1.5px solid ${tab === "submit" ? PALETTE.cardBorder : PALETTE.navy}`,
+                boxShadow: tab === "submit" ? CARD_SHADOW : "none",
                 ...RING_STYLE,
               }}
             >
@@ -68,7 +69,8 @@ export default function App() {
               style={{
                 backgroundColor: tab === "track" ? PALETTE.navy : "#fff",
                 color: tab === "track" ? "#fff" : PALETTE.ink,
-                border: `1.5px solid ${PALETTE.navy}`,
+                border: `1.5px solid ${tab === "track" ? PALETTE.cardBorder : PALETTE.navy}`,
+                boxShadow: tab === "track" ? CARD_SHADOW : "none",
                 ...RING_STYLE,
               }}
             >
@@ -110,6 +112,7 @@ export default function App() {
         style={{
           bottom: "-2%",
           right: "-2%",
+          zIndex: 0,
           width: "clamp(220px, 35vw, 620px)",
           height: "auto",
           filter: "drop-shadow(0 12px 20px rgba(13, 42, 92, 0.45))",

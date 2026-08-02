@@ -15,7 +15,7 @@ function getTitle(submission) {
 }
 
 const selectClass = "px-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2";
-const selectStyle = { border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, ...RING_STYLE };
+const selectStyle = { backgroundColor: PALETTE.onBgSurface, border: `1.5px solid ${PALETTE.border}`, color: "#FFFFFF", ...RING_STYLE };
 const resultCardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
 
 export default function SubmissionsList({ submissions, onStatusChange }) {
@@ -53,15 +53,15 @@ export default function SubmissionsList({ submissions, onStatusChange }) {
     <div>
       <div className="mb-4 flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: PALETTE.sub }} aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: PALETTE.onBgMuted }} aria-hidden="true" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by reference, name, or title..."
             aria-label="Search submissions"
-            className="w-full pl-9 pr-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2"
-            style={{ border: `1.5px solid ${PALETTE.border}`, color: PALETTE.ink, ...RING_STYLE }}
+            className="track-search w-full pl-9 pr-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2"
+            style={{ backgroundColor: PALETTE.onBgSurface, border: `1.5px solid ${PALETTE.border}`, color: "#FFFFFF", ...RING_STYLE }}
           />
         </div>
         <select aria-label="Filter by status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className={selectClass} style={selectStyle}>
