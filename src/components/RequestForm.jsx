@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Send, CheckCircle2, ArrowRight, Paperclip, X } from "lucide-react";
 import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
-import { sendSubmissionEmail } from "../lib/email";
+import { sendSubmissionEmail, NOTIFY_EMAILS } from "../lib/email";
 import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 
 const cardStyle = { backgroundColor: "#fff", border: `1.5px solid ${PALETTE.cardBorder}`, boxShadow: CARD_SHADOW };
@@ -13,6 +13,31 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB per file, a typical web-form limit
 function formatFileSize(bytes) {
   if (bytes < 1024 * 1024) return `${Math.ceil(bytes / 1024)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function formatDetails(typeValues) {
+  return Object.entries(typeValues)
+    .filter(([, value]) => value !== "" && value !== false && value != null)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join("\n");
+}
+
+function setHiddenFormValues(form, params) {
+  Object.entries(params).forEach(([name, value]) => {
+    const el = form.elements.namedItem(name);
+    if (el) el.value = value ?? "";
+  });
+}
+
+function setHiddenFileInputs(form, files) {
+  [1, 2, 3].forEach((n) => {
+    const input = form.elements.namedItem(`attachment_${n}`);
+    if (!input) return;
+    const dataTransfer = new DataTransfer();
+    const file = files[n - 1];
+    if (file) dataTransfer.items.add(file);
+    input.files = dataTransfer.files;
+  });
 }
 
 const inputClass = "w-full px-3 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2 transition-colors";
@@ -178,6 +203,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
   const [emailResult, setEmailResult] = useState(null);
   const [sending, setSending] = useState(false);
   const [files, setFiles] = useState([]);
+  const emailFormRef = useRef(null);
 
   const typeConfig = SUBMISSION_TYPES.find((t) => t.id === typeId);
 
@@ -216,8 +242,22 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     };
     onSubmit(submission);
 
+    setHiddenFormValues(emailFormRef.current, {
+      to_emails: NOTIFY_EMAILS.join(", "),
+      reference,
+      submission_type: typeConfig.label,
+      requester_name: base.name,
+      requester_email: base.email,
+      department: base.department,
+      priority: base.priority,
+      needed_by: base.neededBy || "Not specified",
+      notes: base.notes || "None",
+      details: formatDetails(typeValues),
+    });
+    setHiddenFileInputs(emailFormRef.current, files);
+
     setSending(true);
-    const result = await sendSubmissionEmail(submission, typeConfig.label, files);
+    const result = await sendSubmissionEmail(emailFormRef.current);
     setSending(false);
     setEmailResult(result);
     setConfirmation(submission);
@@ -250,14 +290,21 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
           {confirmation.priority === "urgent" ? "We'll take a look within 24-48 hours." : "We'll take a look within 3-5 business days."}
         </p>
         {emailResult?.sent ? (
-          <p className="text-xs mb-6" style={{ color: PALETTE.success }}>
+          <p className="text-xs mb-1" style={{ color: PALETTE.success }}>
             Emailed to Klentzman Tech Team, thank you!
           </p>
         ) : (
-          <p className="text-xs mb-6" style={{ color: PALETTE.warning }}>
+          <p className="text-xs mb-1" style={{ color: PALETTE.warning }}>
             Saved, but the email notification couldn't be sent. Please follow up directly with the webmaster team.
           </p>
         )}
+        {files.length > 0 && (
+          <p className="text-xs mb-6" style={{ color: emailResult?.sent ? PALETTE.success : PALETTE.warning }}>
+            {emailResult?.sent ? "Attached: " : "Not attached (email failed to send): "}
+            {files.map((f) => f.name).join(", ")}
+          </p>
+        )}
+        {files.length === 0 && <div className="mb-6" />}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
@@ -281,7 +328,23 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <>
+      <form ref={emailFormRef} className="hidden" aria-hidden="true">
+        <input type="hidden" name="to_emails" />
+        <input type="hidden" name="reference" />
+        <input type="hidden" name="submission_type" />
+        <input type="hidden" name="requester_name" />
+        <input type="hidden" name="requester_email" />
+        <input type="hidden" name="department" />
+        <input type="hidden" name="priority" />
+        <input type="hidden" name="needed_by" />
+        <input type="hidden" name="notes" />
+        <input type="hidden" name="details" />
+        <input type="file" name="attachment_1" />
+        <input type="file" name="attachment_2" />
+        <input type="file" name="attachment_3" />
+      </form>
+      <form onSubmit={handleSubmit} noValidate>
       <div className="p-6 rounded-2xl mb-4" style={cardStyle}>
         <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.accent }}>
           Your information
@@ -394,28 +457,37 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
           </p>
         )}
         {files.length > 0 && (
-          <ul className="mt-3 flex flex-col gap-2">
-            {files.map((file, i) => (
-              <li
-                key={`${file.name}-${i}`}
-                className="flex items-center justify-between gap-2 text-sm px-3 py-2 rounded-lg"
-                style={{ backgroundColor: PALETTE.bg + "0d", border: `1.5px solid ${PALETTE.border}` }}
-              >
-                <span className="truncate" style={{ color: PALETTE.ink }}>
-                  {file.name} <span style={{ color: PALETTE.sub }}>({formatFileSize(file.size)})</span>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => removeFile(i)}
-                  aria-label={`Remove ${file.name}`}
-                  className="shrink-0 focus:outline-none focus-visible:ring-2 rounded"
-                  style={{ color: PALETTE.sub, ...RING_STYLE }}
+          <>
+            <p className="text-xs font-semibold mt-3 mb-2 flex items-center gap-1" style={{ color: PALETTE.success }}>
+              <CheckCircle2 size={14} aria-hidden="true" />
+              {files.length} file{files.length > 1 ? "s" : ""} ready to attach
+            </p>
+            <ul className="flex flex-col gap-2">
+              {files.map((file, i) => (
+                <li
+                  key={`${file.name}-${i}`}
+                  className="flex items-center justify-between gap-2 text-sm px-3 py-2 rounded-lg"
+                  style={{ backgroundColor: PALETTE.bg + "0d", border: `1.5px solid ${PALETTE.border}` }}
                 >
-                  <X size={16} aria-hidden="true" />
-                </button>
-              </li>
-            ))}
-          </ul>
+                  <span className="flex items-center gap-2 truncate" style={{ color: PALETTE.ink }}>
+                    <CheckCircle2 size={14} style={{ color: PALETTE.success }} className="shrink-0" aria-hidden="true" />
+                    <span className="truncate">
+                      {file.name} <span style={{ color: PALETTE.sub }}>({formatFileSize(file.size)})</span>
+                    </span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeFile(i)}
+                    aria-label={`Remove ${file.name}`}
+                    className="shrink-0 focus:outline-none focus-visible:ring-2 rounded"
+                    style={{ color: PALETTE.sub, ...RING_STYLE }}
+                  >
+                    <X size={16} aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </div>
 
@@ -427,6 +499,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
       >
         <Send size={16} aria-hidden="true" /> {sending ? "Sending..." : "Submit request"}
       </button>
-    </form>
+      </form>
+    </>
   );
 }
