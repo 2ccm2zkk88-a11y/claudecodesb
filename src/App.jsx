@@ -22,7 +22,14 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: PALETTE.bg }}>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundColor: PALETTE.bg,
+        backgroundImage: "url(/page-bg.jpg)",
+        backgroundRepeat: "repeat",
+      }}
+    >
       <div className="max-w-3xl mx-auto p-6 md:p-10 relative z-10" style={{ fontFamily: "system-ui, sans-serif" }}>
         <header className="mb-8 flex items-start gap-3">
           <img
