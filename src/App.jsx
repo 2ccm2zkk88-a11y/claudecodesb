@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ClipboardList, SendHorizonal, ExternalLink } from "lucide-react";
+import { ClipboardList, SendHorizonal, LifeBuoy } from "lucide-react";
 import RequestForm from "./components/RequestForm";
 import SubmissionsList from "./components/SubmissionsList";
 import { loadSubmissions, saveSubmissions } from "./lib/submissions";
@@ -51,52 +51,56 @@ export default function App() {
           </div>
         </header>
 
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
-          <nav className="flex gap-2" aria-label="Hub sections">
-            <button
-              onClick={() => setTab(tab === "submit" ? "track" : "submit")}
-              className="flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2"
-              style={{
-                backgroundColor: "#fff",
-                color: PALETTE.navy,
-                border: `1.5px solid ${PALETTE.navy}`,
-                boxShadow: CARD_SHADOW,
-                ...RING_STYLE,
-              }}
-            >
-              {tab === "submit" ? (
-                <>
-                  <ClipboardList size={15} aria-hidden="true" /> Track Submissions
-                  {submissions.length > 0 && (
-                    <span className="text-[10px] font-bold px-1.5 rounded-full" style={{ backgroundColor: PALETTE.accent, color: "#fff" }}>
-                      {submissions.length}
-                    </span>
-                  )}
-                </>
-              ) : (
-                <>
-                  <SendHorizonal size={15} aria-hidden="true" /> Submit a Request
-                </>
-              )}
-            </button>
-          </nav>
-
-          <a
-            href="https://forms.gle/8MB7HB3mvZvNREiq5"
-            target="_blank"
-            rel="noopener noreferrer"
+        <nav className="flex flex-wrap gap-2 mb-6" aria-label="Hub sections">
+          <button
+            onClick={() => setTab("submit")}
             className="flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2"
-            style={{ backgroundColor: "#fff", color: PALETTE.orange, border: `1.5px solid ${PALETTE.orange}`, ...RING_STYLE }}
+            style={{
+              backgroundColor: tab === "submit" ? PALETTE.navy : "#fff",
+              color: tab === "submit" ? "#fff" : PALETTE.navy,
+              border: `1.5px solid ${tab === "submit" ? PALETTE.cardBorder : PALETTE.navy}`,
+              boxShadow: CARD_SHADOW,
+              ...RING_STYLE,
+            }}
           >
-            Tiger Tech Support Help <ExternalLink size={15} aria-hidden="true" />
-          </a>
-        </div>
+            <SendHorizonal size={15} aria-hidden="true" /> Submit a Request
+          </button>
+          <button
+            onClick={() => setTab("tech")}
+            className="flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2"
+            style={{
+              backgroundColor: tab === "tech" ? PALETTE.navy : "#fff",
+              color: tab === "tech" ? "#fff" : PALETTE.navy,
+              border: `1.5px solid ${tab === "tech" ? PALETTE.cardBorder : PALETTE.navy}`,
+              boxShadow: CARD_SHADOW,
+              ...RING_STYLE,
+            }}
+          >
+            <LifeBuoy size={15} aria-hidden="true" /> Tech Support Request
+          </button>
+          <button
+            onClick={() => setTab("track")}
+            className="flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2"
+            style={{
+              backgroundColor: tab === "track" ? PALETTE.navy : "#fff",
+              color: tab === "track" ? "#fff" : PALETTE.navy,
+              border: `1.5px solid ${tab === "track" ? PALETTE.cardBorder : PALETTE.navy}`,
+              boxShadow: CARD_SHADOW,
+              ...RING_STYLE,
+            }}
+          >
+            <ClipboardList size={15} aria-hidden="true" /> Track Submissions
+            {submissions.length > 0 && (
+              <span className="text-[10px] font-bold px-1.5 rounded-full" style={{ backgroundColor: PALETTE.accent, color: "#fff" }}>
+                {submissions.length}
+              </span>
+            )}
+          </button>
+        </nav>
 
-        {tab === "submit" ? (
-          <RequestForm submissions={submissions} onSubmit={addSubmission} onViewTrack={() => setTab("track")} />
-        ) : (
-          <SubmissionsList submissions={submissions} onStatusChange={updateStatus} />
-        )}
+        {tab === "submit" && <RequestForm submissions={submissions} onSubmit={addSubmission} onViewTrack={() => setTab("track")} />}
+        {tab === "tech" && <RequestForm submissions={submissions} onSubmit={addSubmission} onViewTrack={() => setTab("track")} lockedTypeId="tech" />}
+        {tab === "track" && <SubmissionsList submissions={submissions} onStatusChange={updateStatus} />}
       </div>
 
       <img

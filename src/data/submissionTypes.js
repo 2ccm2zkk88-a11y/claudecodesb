@@ -1,4 +1,4 @@
-import { Megaphone, CalendarDays, Image, FileText, UserCog, PenSquare } from "lucide-react";
+import { Megaphone, CalendarDays, Image, FileText, UserCog, PenSquare, LifeBuoy } from "lucide-react";
 import { PALETTE } from "../theme";
 
 export const SUBMISSION_TYPES = [
@@ -85,6 +85,30 @@ export const SUBMISSION_TYPES = [
     ],
   },
 ];
+
+// Not part of SUBMISSION_TYPES / the "what are you submitting" grid — this is a separate
+// request flow reached via its own dedicated button, not the website-content type picker.
+export const TECH_TYPE = {
+  id: "tech",
+  label: "Tech Support Request",
+  description: "Report a device, account, or network issue",
+  icon: LifeBuoy,
+  color: "#2563EB",
+  titleField: "issueCategory",
+  fields: [
+    {
+      name: "issueCategory",
+      label: "What's the issue?",
+      type: "select",
+      required: true,
+      options: ["Computer / Laptop", "Printer", "Projector / AV Equipment", "Network / Wi-Fi", "Account / Password", "Website or Hub Issue", "Software", "Other"],
+    },
+    { name: "location", label: "Room / Location", type: "text", required: false, placeholder: "e.g. Room 204, Front Office" },
+    { name: "description", label: "Describe the issue", type: "textarea", required: true, placeholder: "What's happening? Include any error messages." },
+  ],
+};
+
+export const ALL_TYPES = [...SUBMISSION_TYPES, TECH_TYPE];
 
 export const DEPARTMENTS = ["Administration", "Front Office", "5th Grade", "6th Grade", "Counseling", "Special Programs", "PTO", "Other"];
 

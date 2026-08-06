@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 import { Search, Inbox } from "lucide-react";
-import { SUBMISSION_TYPES, STATUSES } from "../data/submissionTypes";
+import { ALL_TYPES, STATUSES } from "../data/submissionTypes";
 import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
 import StatusBadge from "./StatusBadge";
 
 function getTypeConfig(typeId) {
-  return SUBMISSION_TYPES.find((t) => t.id === typeId);
+  return ALL_TYPES.find((t) => t.id === typeId);
 }
 
 function getTitle(submission) {
@@ -74,7 +74,7 @@ export default function SubmissionsList({ submissions, onStatusChange }) {
         </select>
         <select aria-label="Filter by type" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className={selectClass} style={selectStyle}>
           <option value="All">All types</option>
-          {SUBMISSION_TYPES.map((t) => (
+          {ALL_TYPES.map((t) => (
             <option key={t.id} value={t.id}>
               {t.label}
             </option>

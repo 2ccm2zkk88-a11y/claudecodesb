@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Send, CheckCircle2, ArrowRight, Mail } from "lucide-react";
-import { SUBMISSION_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
+import { SUBMISSION_TYPES, ALL_TYPES, DEPARTMENTS, PRIORITIES } from "../data/submissionTypes";
 import { nextReference } from "../lib/submissions";
 import { sendSubmissionEmail } from "../lib/email";
 import { PALETTE, CARD_SHADOW, RING_STYLE } from "../theme";
@@ -161,16 +161,17 @@ function validate(base, typeConfig, typeValues) {
   return errors;
 }
 
-export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
+export default function RequestForm({ submissions, onSubmit, onViewTrack, lockedTypeId }) {
   const [base, setBase] = useState(initialBase);
-  const [typeId, setTypeId] = useState("");
+  const [typeId, setTypeId] = useState(lockedTypeId || "");
   const [typeValues, setTypeValues] = useState({});
   const [errors, setErrors] = useState({});
   const [confirmation, setConfirmation] = useState(null);
   const [emailResult, setEmailResult] = useState(null);
   const [sending, setSending] = useState(false);
 
-  const typeConfig = SUBMISSION_TYPES.find((t) => t.id === typeId);
+  const typeConfig = ALL_TYPES.find((t) => t.id === typeId);
+  const referencePrefix = lockedTypeId === "tech" ? "TECH" : "KLZ";
 
   const updateBase = (name, value) => setBase((prev) => ({ ...prev, [name]: value }));
   const updateTypeField = (name, value) => setTypeValues((prev) => ({ ...prev, [name]: value }));
@@ -187,7 +188,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
-    const reference = nextReference(submissions);
+    const reference = nextReference(submissions, referencePrefix);
     const submission = {
       reference,
       typeId,
@@ -207,7 +208,7 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
 
   const startNew = () => {
     setBase(initialBase);
-    setTypeId("");
+    setTypeId(lockedTypeId || "");
     setTypeValues({});
     setErrors({});
     setConfirmation(null);
@@ -326,12 +327,12 @@ export default function RequestForm({ submissions, onSubmit, onViewTrack }) {
 
       <div className="p-6 rounded-2xl mb-4" style={cardStyle}>
         <h2 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: PALETTE.accent }}>
-          What you're submitting
+          {lockedTypeId ? "Tech Support Details" : "What you're submitting"}
         </h2>
-        <TypePicker selectedId={typeId} onSelect={selectType} error={errors.type} />
+        {!lockedTypeId && <TypePicker selectedId={typeId} onSelect={selectType} error={errors.type} />}
 
         {typeConfig && (
-          <div className="pt-2 mt-2" style={{ borderTop: `1.5px solid ${PALETTE.border}` }}>
+          <div className={lockedTypeId ? "" : "pt-2 mt-2"} style={lockedTypeId ? {} : { borderTop: `1.5px solid ${PALETTE.border}` }}>
             {typeConfig.fields.map((f) => (
               <DynamicField key={f.name} field={f} value={typeValues[f.name]} onChange={updateTypeField} error={errors[f.name]} />
             ))}

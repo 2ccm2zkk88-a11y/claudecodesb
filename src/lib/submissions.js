@@ -13,8 +13,8 @@ export function saveSubmissions(submissions) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
 }
 
-export function nextReference(submissions) {
+export function nextReference(submissions, prefix = "KLZ") {
   const year = new Date().getFullYear();
-  const count = submissions.filter((s) => s.reference.startsWith(`KLZ-${year}`)).length;
-  return `KLZ-${year}-${String(count + 1).padStart(3, "0")}`;
+  const count = submissions.filter((s) => s.reference.startsWith(`${prefix}-${year}`)).length;
+  return `${prefix}-${year}-${String(count + 1).padStart(3, "0")}`;
 }
