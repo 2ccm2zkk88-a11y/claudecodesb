@@ -1,16 +1,52 @@
-# React + Vite
+# Learning Launch Pad
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A React + Vite single-page app for Alief ISD Digital Learning: a searchable, filterable grid of
+the district's classroom apps, each with a "mission briefing" explaining what it does, what trips
+people up, and a coach's move for supporting teachers who use it.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```
+npm install
+npm run dev
+```
 
-## React Compiler
+## Testing
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+npm test        # run the suite once
+npm run test:watch
+```
 
-## Expanding the Oxlint configuration
+Tests cover the search/filter logic (`src/missions.js`), mission data integrity, and the
+`LaunchConsole` component (grid rendering, search, filters, and the mission briefing modal).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Deploying to Firebase Hosting
+
+This app has no backend of its own — it's a static build, so any static host works. The steps
+below use Firebase Hosting:
+
+1. Create a project at [console.firebase.google.com](https://console.firebase.google.com) (or use
+   an existing one for the district).
+2. Install the CLI and log in from your machine:
+   ```
+   npm install -g firebase-tools
+   firebase login
+   ```
+3. Copy `.firebaserc.example` to `.firebaserc` and replace `your-firebase-project-id` with your
+   actual Firebase project ID.
+4. Build and deploy:
+   ```
+   npm run build
+   firebase deploy
+   ```
+   Firebase will print the live URL (`https://<project-id>.web.app`) when it finishes.
+
+Once live, that URL can be linked from or embedded in the district's existing site (e.g. as an
+embedded page in Google Sites) if it isn't the primary campus site itself.
+
+## Linting
+
+```
+npm run lint
+```
