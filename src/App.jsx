@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ClipboardList, SendHorizonal, LifeBuoy } from "lucide-react";
+import { ClipboardList, SendHorizonal, LifeBuoy, Lock } from "lucide-react";
 import RequestForm from "./components/RequestForm";
 import SubmissionsList from "./components/SubmissionsList";
 import { loadSubmissions, saveSubmissions } from "./lib/submissions";
@@ -31,6 +31,13 @@ export default function App() {
       }}
     >
       <div className="max-w-3xl mx-auto p-6 md:p-10 relative z-10" style={{ fontFamily: "system-ui, sans-serif" }}>
+        <div
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide px-3 py-1.5 rounded-full mb-4"
+          style={{ backgroundColor: PALETTE.orange + "18", border: `1.5px solid ${PALETTE.orange}`, color: PALETTE.orange }}
+        >
+          <Lock size={12} aria-hidden="true" /> For Administrative Staff Use Only
+        </div>
+
         <header className="mb-8 flex items-start gap-3">
           <img
             src="/klentzman-logo.jpg"
