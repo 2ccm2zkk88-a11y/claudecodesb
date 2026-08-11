@@ -1,17 +1,16 @@
 export default function TigerDecoration() {
   return (
     <img
-      src="/tiger.jpg"
+      src="/tiger.png"
       alt=""
       aria-hidden="true"
       className="fixed left-0 bottom-0 pointer-events-none select-none hidden md:block"
       style={{
-        width: "min(30vw, 420px)",
+        width: "min(26vw, 380px)",
         height: "auto",
-        opacity: 0.9,
+        opacity: 0.96,
         zIndex: 0,
-        maskImage: "linear-gradient(to right, black 55%, transparent 95%)",
-        WebkitMaskImage: "linear-gradient(to right, black 55%, transparent 95%)",
+        filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.45))",
       }}
       onError={(e) => {
         e.currentTarget.style.display = "none";

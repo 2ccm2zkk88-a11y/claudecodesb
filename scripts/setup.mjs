@@ -119,11 +119,9 @@ async function main() {
   console.log(`Her dashboard URL will be:            https://${projectId}.web.app/secretary\n`);
 
   const dropLogo = !existsSync(path.join(root, "public", "logo.png"));
-  const dropTiger = !existsSync(path.join(root, "public", "tiger.jpg"));
-  if (dropLogo || dropTiger) {
-    console.log("Reminder: drop your image files in before deploying:");
-    if (dropLogo) console.log("  - public/logo.png  (the Klentzman seal, shown top-left)");
-    if (dropTiger) console.log("  - public/tiger.jpg (the tiger photo, shown bottom-left)");
+  if (dropLogo) {
+    console.log("Reminder: drop the logo file in before deploying:");
+    console.log("  - public/logo.png  (the Klentzman seal, shown top-left)");
     console.log("");
   }
 }
