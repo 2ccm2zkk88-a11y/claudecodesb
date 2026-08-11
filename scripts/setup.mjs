@@ -6,7 +6,6 @@
 
 import { createInterface } from "node:readline/promises";
 import { writeFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -117,13 +116,6 @@ async function main() {
   console.log("  4. npm run create-secretary-account   (creates her dashboard login at /secretary)\n");
   console.log(`Once deployed, her form URL will be:  https://${projectId}.web.app`);
   console.log(`Her dashboard URL will be:            https://${projectId}.web.app/secretary\n`);
-
-  const dropLogo = !existsSync(path.join(root, "public", "logo.png"));
-  if (dropLogo) {
-    console.log("Reminder: drop the logo file in before deploying:");
-    console.log("  - public/logo.png  (the Klentzman seal, shown top-left)");
-    console.log("");
-  }
 }
 
 main().catch((err) => {

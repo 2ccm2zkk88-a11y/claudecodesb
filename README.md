@@ -25,14 +25,10 @@ reads/writes) — every read and write goes through a Cloud Function, which is
 what makes the daily limit and the secretary-only dashboard actually
 enforceable instead of just a UI suggestion.
 
-## 1. Add the logo
+## 1. Images
 
-`public/tiger.png` is already in the repo. Still needed:
-
-- `public/logo.png` — the Klentzman seal, shown top-left of the form
-
-The page still works without it (the spot just stays empty), so you can
-deploy first and add it later if that's easier.
+`public/logo.png` (the Klentzman seal) and `public/tiger.png` (the tiger
+photo) are already in the repo — nothing to do here.
 
 ## 2. Set up EmailJS
 
