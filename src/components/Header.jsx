@@ -1,17 +1,8 @@
-import { Lock } from "lucide-react";
 import { PALETTE, SCHOOL_SHORT } from "../lib/constants";
 
 export default function Header() {
   return (
     <div className="mb-8">
-      <div
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[11px] font-bold uppercase tracking-wide mb-6"
-        style={{ borderColor: PALETTE.orange, color: PALETTE.orange, backgroundColor: "rgba(232,112,58,0.08)" }}
-      >
-        <Lock size={12} />
-        For Administrative Staff Use Only
-      </div>
-
       <div className="flex items-start gap-4">
         <img
           src="/logo.png"
