@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Terminal setup wizard for the Klentzman Principal's Secretary Request Hub.
+// Terminal setup wizard for Ms. Edwards's Corner (Klentzman Principal's
+// Secretary request hub).
 // Collects Firebase + email config and writes .firebaserc, .env.local, and
 // functions/.env. Run `firebase deploy` afterwards to get the live URL.
 
@@ -41,7 +42,7 @@ function isPositiveInt(value) {
 }
 
 async function main() {
-  console.log("\nKlentzman Principal's Secretary Request Hub — setup wizard\n");
+  console.log("\nMs. Edwards's Corner — setup wizard\n");
   console.log("Have these ready before you start:");
   console.log("  1. A Firebase project (create one free at https://console.firebase.google.com)");
   console.log("  2. That project's Web App config (Project settings -> General -> Your apps -> Web app)");

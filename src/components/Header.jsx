@@ -27,7 +27,7 @@ export default function Header() {
             {SCHOOL_SHORT}
           </p>
           <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-1 leading-tight">
-            Principal's Secretary Request Hub
+            Ms. Edwards's Corner
           </h1>
           <p className="text-sm text-white/70 max-w-xl leading-relaxed">
             Submit a request or check on something you're waiting for. This hub routes only to the

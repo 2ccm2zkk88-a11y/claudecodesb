@@ -1,11 +1,11 @@
-# Klentzman Principal's Secretary Request Hub
+# Ms. Edwards's Corner
 
 A request-and-tracking form for Klentzman Intermediate School's Principal's
-Secretary. It is scoped intentionally: **for requests to the Principal's
-Secretary only**, not a general campus office line. It enforces a daily
-request limit, emails every submission straight to her inbox, and gives her
-a simple dashboard to track and update the status of things she's agreed to
-do.
+Secretary, Ms. Edwards. It is scoped intentionally: **for requests to the
+Principal's Secretary only**, not a general campus office line. It enforces
+a daily request limit, emails every submission straight to her inbox, and
+gives her a simple dashboard to track and update the status of things she's
+agreed to do.
 
 - Public form + tracker: `/`
 - Secretary dashboard (login required): `/secretary`
