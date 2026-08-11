@@ -2,7 +2,6 @@ import { onCall, HttpsError } from "firebase-functions/v2/https";
 import { setGlobalOptions } from "firebase-functions/v2/options";
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
-import nodemailer from "nodemailer";
 
 setGlobalOptions({ maxInstances: 10, region: "us-central1" });
 
@@ -43,31 +42,31 @@ function formatTimestamp(ts) {
   }).format(date);
 }
 
-let cachedTransporter;
-function getTransporter() {
-  if (cachedTransporter !== undefined) return cachedTransporter;
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-    console.warn("SMTP is not configured; skipping email delivery.");
-    cachedTransporter = null;
-    return cachedTransporter;
-  }
-  cachedTransporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: Number(SMTP_PORT || 587),
-    secure: Number(SMTP_PORT || 587) === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-  return cachedTransporter;
-}
+const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
 
-async function sendMail(options) {
-  const transporter = getTransporter();
-  if (!transporter) return;
+async function sendViaEmailJS(templateId, templateParams) {
+  const { EMAILJS_SERVICE_ID, EMAILJS_PUBLIC_KEY, EMAILJS_PRIVATE_KEY } = process.env;
+  if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY || !templateId) {
+    console.warn("EmailJS is not configured; skipping email delivery.");
+    return;
+  }
   try {
-    await transporter.sendMail({ from: process.env.SMTP_FROM || process.env.SMTP_USER, ...options });
+    const res = await fetch(EMAILJS_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: templateId,
+        user_id: EMAILJS_PUBLIC_KEY,
+        accessToken: EMAILJS_PRIVATE_KEY || undefined,
+        template_params: templateParams,
+      }),
+    });
+    if (!res.ok) {
+      console.error("EmailJS send failed", res.status, await res.text());
+    }
   } catch (err) {
-    console.error("Failed to send email", err);
+    console.error("Failed to send email via EmailJS", err);
   }
 }
 
@@ -153,31 +152,29 @@ export const submitRequest = onCall(async (request) => {
   });
 
   if (settings.secretaryEmail) {
-    await sendMail({
-      to: settings.secretaryEmail,
-      replyTo: email,
-      subject: `[${referenceId}] ${priority === "urgent" ? "URGENT — " : ""}${REQUEST_TYPE_LABELS[requestType]} from ${name}`,
-      text: [
-        `New request from ${name} (${department})`,
-        `Email: ${email}`,
-        `Type: ${REQUEST_TYPE_LABELS[requestType]}`,
-        `Priority: ${priority}`,
-        neededBy ? `Needed by: ${neededBy}` : null,
-        "",
-        details,
-        "",
-        `Reference: ${referenceId}`,
-      ]
-        .filter(Boolean)
-        .join("\n"),
+    await sendViaEmailJS(process.env.EMAILJS_SECRETARY_TEMPLATE_ID, {
+      to_email: settings.secretaryEmail,
+      reply_to: email,
+      requester_name: name,
+      requester_email: email,
+      department,
+      request_type: REQUEST_TYPE_LABELS[requestType],
+      priority: priority === "urgent" ? "Urgent" : "Standard",
+      needed_by: neededBy || "Not specified",
+      details,
+      reference_id: referenceId,
     });
   }
 
-  await sendMail({
-    to: email,
-    subject: `We received your request (${referenceId})`,
-    text: `Hi ${name},\n\nYour request has been sent to ${settings.secretaryName} and is marked as ${priority}. Your reference number is ${referenceId}. You can check its status any time on the request hub under "Track My Requests".\n\nThanks!`,
-  });
+  if (process.env.EMAILJS_REQUESTER_TEMPLATE_ID) {
+    await sendViaEmailJS(process.env.EMAILJS_REQUESTER_TEMPLATE_ID, {
+      to_email: email,
+      requester_name: name,
+      reference_id: referenceId,
+      priority: priority === "urgent" ? "Urgent" : "Standard",
+      secretary_name: settings.secretaryName,
+    });
+  }
 
   return { referenceId };
 });

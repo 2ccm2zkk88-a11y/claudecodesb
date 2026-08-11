@@ -46,7 +46,8 @@ async function main() {
   console.log("Have these ready before you start:");
   console.log("  1. A Firebase project (create one free at https://console.firebase.google.com)");
   console.log("  2. That project's Web App config (Project settings -> General -> Your apps -> Web app)");
-  console.log("  3. The secretary's email address, and SMTP credentials to send mail from\n");
+  console.log("  3. An EmailJS account (https://dashboard.emailjs.com) with an email service and");
+  console.log("     at least one template connected -- see README.md for the exact template fields\n");
 
   const projectId = await ask("Firebase project ID", { validate: required("Project ID") });
 
@@ -55,14 +56,18 @@ async function main() {
   const secretaryEmail = await ask("Secretary's email (submissions are routed here)", { validate: isEmail });
   const dailyLimit = await ask("Daily request limit", { defaultValue: "8", validate: isPositiveInt });
 
-  console.log("\n-- Outgoing email (SMTP) --");
-  console.log("For Gmail/Google Workspace, use smtp.gmail.com and a 16-character App Password,");
-  console.log("not the account's normal login password: https://myaccount.google.com/apppasswords\n");
-  const smtpHost = await ask("SMTP host", { defaultValue: "smtp.gmail.com" });
-  const smtpPort = await ask("SMTP port", { defaultValue: "587" });
-  const smtpUser = await ask("SMTP username / sending address", { validate: isEmail });
-  const smtpPass = await ask("SMTP password / app password", { validate: required("SMTP password") });
-  const smtpFrom = await ask("\"From\" address shown to requesters", { defaultValue: smtpUser });
+  console.log("\n-- Outgoing email (EmailJS) --");
+  console.log("Dashboard -> Email Services for the Service ID, Email Templates for the Template");
+  console.log("ID(s), Account -> General for the Public Key, Account -> API Keys for the Private Key.\n");
+  const emailjsServiceId = await ask("EmailJS Service ID", { validate: required("Service ID") });
+  const emailjsPublicKey = await ask("EmailJS Public Key", { validate: required("Public Key") });
+  const emailjsPrivateKey = await ask("EmailJS Private Key", { validate: required("Private Key") });
+  const emailjsSecretaryTemplateId = await ask("Template ID for the secretary's notification email", {
+    validate: required("Template ID"),
+  });
+  const emailjsRequesterTemplateId = await ask(
+    "Template ID for the requester's confirmation email (optional, blank to skip)"
+  );
 
   console.log("\n-- Firebase Web App config --");
   console.log("Firebase console -> Project settings -> General -> scroll to \"Your apps\" -> Web app -> SDK setup and configuration.\n");
@@ -95,11 +100,11 @@ async function main() {
     `DAILY_LIMIT_DEFAULT=${dailyLimit}`,
     `SECRETARY_EMAIL=${secretaryEmail}`,
     `SECRETARY_NAME=${secretaryName}`,
-    `SMTP_HOST=${smtpHost}`,
-    `SMTP_PORT=${smtpPort}`,
-    `SMTP_USER=${smtpUser}`,
-    `SMTP_PASS=${smtpPass}`,
-    `SMTP_FROM=${smtpFrom}`,
+    `EMAILJS_SERVICE_ID=${emailjsServiceId}`,
+    `EMAILJS_PUBLIC_KEY=${emailjsPublicKey}`,
+    `EMAILJS_PRIVATE_KEY=${emailjsPrivateKey}`,
+    `EMAILJS_SECRETARY_TEMPLATE_ID=${emailjsSecretaryTemplateId}`,
+    `EMAILJS_REQUESTER_TEMPLATE_ID=${emailjsRequesterTemplateId}`,
     "",
   ].join("\n");
   await writeFile(path.join(root, "functions", ".env"), functionsEnv);
