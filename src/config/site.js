@@ -2,6 +2,8 @@
 // Update contact info, pricing, services, and portfolio projects here —
 // every page pulls from this single source of truth.
 
+import cyberfalconGrcImage from "../assets/portfolio/cyberfalcongrc.jpg";
+
 export const business = {
   name: "CyberFalcon Digital",
   legalName: "CyberFalcon Digital",
@@ -185,6 +187,15 @@ export const portfolioProjects = [
     services: ["Website Development"],
     url: "https://klentzman-content-hub.web.app/",
     image: "",
+  },
+  {
+    id: "cyberfalcongrc",
+    title: "CyberFalconGRC",
+    description:
+      "Original website for CyberFalconGRC, a GRC audit firm founded by Sable R Banks.",
+    services: ["IT Audit", "GRC", "Cybersecurity"],
+    url: "https://hirecyberfalcon.com",
+    image: cyberfalconGrcImage,
   },
 ];
 
