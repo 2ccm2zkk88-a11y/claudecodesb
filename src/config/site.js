@@ -3,6 +3,7 @@
 // every page pulls from this single source of truth.
 
 import cyberfalconGrcImage from "../assets/portfolio/cyberfalcongrc.jpg";
+import klentzmanImage from "../assets/portfolio/klentzman-content-hub.jpg";
 
 export const business = {
   name: "CyberFalcon Digital",
@@ -183,10 +184,11 @@ export const portfolioProjects = [
   {
     id: "klentzman-content-hub",
     title: "Klentzman Content Hub",
-    description: "Website design and development project.",
-    services: ["Website Development"],
+    description:
+      "Administrative website for a public school campus, giving staff one place to submit website content updates and tech support requests.",
+    services: ["Website Development", "Content Submissions", "Tech Support"],
     url: "https://klentzman-content-hub.web.app/",
-    image: "",
+    image: klentzmanImage,
   },
   {
     id: "cyberfalcongrc",
