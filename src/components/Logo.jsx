@@ -6,7 +6,7 @@ import FalconMark from "./FalconMark";
 export default function Logo({ compact = false, className = "", markOnly = false }) {
   const content = (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <FalconMark size={compact ? 30 : 38} />
+      <FalconMark size={compact ? 34 : 42} decorative />
       {!markOnly && (
         <span className="flex flex-col leading-none">
           <span className="text-[1.05rem] sm:text-[1.15rem] font-semibold tracking-tight text-white">
