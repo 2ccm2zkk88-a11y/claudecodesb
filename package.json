@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "setup": "node scripts/setup.mjs",
     "create-secretary-account": "node scripts/create-secretary-account.mjs",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "npm run build && npx firebase-tools deploy"
   },
   "dependencies": {
     "firebase": "^12.17.1",
