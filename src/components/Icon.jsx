@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Radar,
   MessageSquare,
+  Film,
 } from "lucide-react";
 
 const ICONS = {
@@ -30,6 +31,7 @@ const ICONS = {
   ShieldCheck,
   Radar,
   MessageSquare,
+  Film,
 };
 
 // Looks up a lucide icon by the string name stored in site config, so

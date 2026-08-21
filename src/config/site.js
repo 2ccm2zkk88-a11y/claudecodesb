@@ -37,6 +37,7 @@ export const nav = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Website Management", href: "/website-management" },
+  { label: "Property Marketing", href: "/property-marketing" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
@@ -129,6 +130,15 @@ export const services = [
     shortDescription: "Troubleshoot issues and get the help you need.",
     description:
       "Something isn't working right? Reach out and get plain-language help resolving it, without needing to understand the technical details yourself.",
+  },
+  {
+    id: "cinematic-property-marketing",
+    icon: "Film",
+    title: "Cinematic Property Marketing",
+    isNew: true,
+    shortDescription: "Turn property photos into cinematic video content.",
+    description:
+      "Your existing professional property photos, transformed into polished promotional video — no new photoshoot required. Built for luxury vacation rentals, Airbnb & VRBO listings, real estate, boutique hotels, resorts, and property management companies.",
   },
 ];
 
@@ -237,5 +247,6 @@ export const serviceOptions = [
   "Website Maintenance",
   "Technical Support",
   "Domain/Hosting Assistance",
+  "Cinematic Property Marketing",
   "Other",
 ];

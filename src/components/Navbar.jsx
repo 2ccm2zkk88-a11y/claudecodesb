@@ -30,7 +30,7 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const linkClass = ({ isActive }) =>
-    `text-sm font-medium transition-colors duration-200 ${
+    `whitespace-nowrap text-sm font-medium transition-colors duration-200 ${
       isActive ? "text-white" : "text-cf-gray hover:text-white"
     }`;
 
@@ -49,7 +49,7 @@ export default function Navbar() {
       <Container className="flex h-18 items-center justify-between py-3.5">
         <Logo />
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary">
           {nav.map((item) => (
             <NavLink key={item.href} to={item.href} end={item.href === "/"} className={linkClass}>
               {item.label}
@@ -57,7 +57,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Button to="/contact" size="md">
             Request a Quote
           </Button>
@@ -65,7 +65,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg border border-cf-border p-2 text-white lg:hidden"
+          className="inline-flex items-center justify-center rounded-lg border border-cf-border p-2 text-white xl:hidden"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -77,7 +77,7 @@ export default function Navbar() {
 
       <div
         id="mobile-nav"
-        className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${
+        className={`xl:hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${
           mobileOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >

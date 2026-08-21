@@ -4,6 +4,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import WebsiteManagement from "./pages/WebsiteManagement";
+import PropertyMarketing from "./pages/PropertyMarketing";
 import Portfolio from "./pages/Portfolio";
 import Pricing from "./pages/Pricing";
 import About from "./pages/About";
@@ -21,6 +22,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="services" element={<Services />} />
           <Route path="website-management" element={<WebsiteManagement />} />
+          <Route path="property-marketing" element={<PropertyMarketing />} />
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="about" element={<About />} />
