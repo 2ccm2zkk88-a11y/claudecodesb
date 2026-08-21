@@ -4,6 +4,7 @@
 
 import cyberfalconGrcImage from "../assets/portfolio/cyberfalcongrc.jpg";
 import klentzmanImage from "../assets/portfolio/klentzman-content-hub.jpg";
+import klentzmanSecretaryImage from "../assets/portfolio/klentzman-secretary-hub.jpg";
 
 export const business = {
   name: "CyberFalcon Digital",
@@ -189,6 +190,15 @@ export const portfolioProjects = [
     services: ["Website Development", "Content Submissions", "Tech Support"],
     url: "https://klentzman-content-hub.web.app/",
     image: klentzmanImage,
+  },
+  {
+    id: "klentzman-secretary-hub",
+    title: "Klentzman Secretary Hub",
+    description:
+      "Web application for a school principal's secretary — a one-stop shop for staff to submit and track requests directed to her.",
+    services: ["Website Development", "Request Tracking"],
+    url: "https://klentzman-secretary-hub.web.app",
+    image: klentzmanSecretaryImage,
   },
   {
     id: "cyberfalcongrc",
