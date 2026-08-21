@@ -6,6 +6,17 @@ import { PALETTE, STATUS_META } from "../lib/constants";
 
 const STATUS_ORDER = ["pending", "in_progress", "done", "declined"];
 
+const LOGIN_ERROR_MESSAGES = {
+  "auth/operation-not-allowed":
+    "Email/Password sign-in isn't turned on for this project yet. In Firebase console -> Authentication -> Sign-in method, enable Email/Password, then try again.",
+  "auth/invalid-credential": "Incorrect email or password.",
+  "auth/wrong-password": "Incorrect email or password.",
+  "auth/user-not-found": "No account found for that email.",
+  "auth/invalid-email": "That doesn't look like a valid email address.",
+  "auth/too-many-requests": "Too many attempts — wait a bit and try again.",
+  "auth/network-request-failed": "Network error — check your connection and try again.",
+};
+
 function LoginForm({ onSignedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,8 +30,8 @@ function LoginForm({ onSignedIn }) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       onSignedIn();
-    } catch {
-      setError("Couldn't sign in. Check your email and password and try again.");
+    } catch (err) {
+      setError(LOGIN_ERROR_MESSAGES[err.code] || `Couldn't sign in (${err.code || err.message}).`);
     } finally {
       setBusy(false);
     }
