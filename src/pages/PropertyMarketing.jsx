@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { Clapperboard, Smartphone, Zap, Layers } from "lucide-react";
 import SEO from "../components/SEO";
 import Container from "../components/Container";
@@ -38,27 +37,12 @@ const deliverables = [
 ];
 
 function PreviewVideo() {
-  const videoRef = useRef(null);
-  const [autoPlay, setAutoPlay] = useState(false);
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setAutoPlay(!prefersReduced);
-  }, []);
-
-  useEffect(() => {
-    if (autoPlay) videoRef.current?.play().catch(() => {});
-  }, [autoPlay]);
-
   return (
     <div className="overflow-hidden rounded-2xl border border-cf-border bg-cf-surface/40 shadow-[0_0_0_1px_rgba(139,92,246,0.15),0_20px_60px_-20px_rgba(124,58,237,0.35)]">
       <video
-        ref={videoRef}
         className="w-full"
         poster={previewPoster}
         controls
-        muted={autoPlay}
-        loop={autoPlay}
         playsInline
         preload="metadata"
         aria-label="Sample cinematic property marketing video"
