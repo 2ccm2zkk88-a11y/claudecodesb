@@ -193,7 +193,7 @@ export const pricingPlans = [
 export const portfolioProjects = [
   {
     id: "klentzman-content-hub",
-    title: "Klentzman Content Hub",
+    title: "Public School Content Hub",
     description:
       "Administrative website for a public school campus, giving staff one place to submit website content updates and tech support requests.",
     services: ["Website Development", "Content Submissions", "Tech Support"],
@@ -202,7 +202,7 @@ export const portfolioProjects = [
   },
   {
     id: "klentzman-secretary-hub",
-    title: "Klentzman Secretary Hub",
+    title: "Public School Secretary Hub",
     description:
       "Web application for a school principal's secretary — a one-stop shop for staff to submit and track requests directed to her.",
     services: ["Website Development", "Request Tracking"],
@@ -211,9 +211,9 @@ export const portfolioProjects = [
   },
   {
     id: "cyberfalcongrc",
-    title: "CyberFalconGRC",
+    title: "Small Business",
     description:
-      "Original website for CyberFalconGRC, a GRC audit firm founded by Sable R Banks.",
+      "Original website for CyberFalconGRC, a GRC audit firm founded by Sable.",
     services: ["IT Audit", "GRC", "Cybersecurity"],
     url: "https://hirecyberfalcon.com",
     image: cyberfalconGrcImage,
