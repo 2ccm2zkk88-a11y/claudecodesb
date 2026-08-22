@@ -14,7 +14,7 @@ export default function About() {
     <>
       <SEO
         title="About"
-        description="CyberFalcon Digital is the website development and webmaster services arm of the CyberFalcon technology brand, founded by Sable R Banks."
+        description="CyberFalcon Digital is the website development and webmaster services arm of the CyberFalcon technology brand, founded by Sable."
       />
 
       <PageHero
@@ -28,7 +28,7 @@ export default function About() {
           <Reveal className="flex flex-col gap-6 text-base leading-relaxed text-cf-gray">
             <h2 className="text-2xl font-bold text-white">Meet the founder</h2>
             <p>
-              CyberFalcon Digital is founded and run by <span className="font-semibold text-white">Sable R Banks</span>,
+              CyberFalcon Digital is founded and run by <span className="font-semibold text-white">Sable</span>,
               who serves as Founder &amp; Webmaster. CyberFalcon Digital brings together website administration,
               hands-on technical work, and security-conscious practices to help organizations maintain a website
               they can rely on.
@@ -52,7 +52,7 @@ export default function About() {
                 <FalconMark size={56} />
               </div>
               <div>
-                <p className="text-lg font-semibold text-white">Sable R Banks</p>
+                <p className="text-lg font-semibold text-white">Sable</p>
                 <p className="text-sm text-cf-blue-bright">Founder & Webmaster</p>
               </div>
               <p className="text-xs text-cf-gray-dim">{business.name}</p>
