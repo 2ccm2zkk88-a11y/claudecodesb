@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Clapperboard, Smartphone, Zap, Layers } from "lucide-react";
 import SEO from "../components/SEO";
 import Container from "../components/Container";
@@ -6,6 +7,8 @@ import SectionHeading from "../components/SectionHeading";
 import GlowCard from "../components/GlowCard";
 import Reveal from "../components/Reveal";
 import CTASection from "../components/CTASection";
+import previewVideo from "../assets/video/property-marketing-preview.mp4";
+import previewPoster from "../assets/video/property-marketing-poster.jpg";
 
 const deliverables = [
   {
@@ -34,6 +37,38 @@ const deliverables = [
   },
 ];
 
+function PreviewVideo() {
+  const videoRef = useRef(null);
+  const [autoPlay, setAutoPlay] = useState(false);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setAutoPlay(!prefersReduced);
+  }, []);
+
+  useEffect(() => {
+    if (autoPlay) videoRef.current?.play().catch(() => {});
+  }, [autoPlay]);
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-cf-border bg-cf-surface/40 shadow-[0_0_0_1px_rgba(139,92,246,0.15),0_20px_60px_-20px_rgba(124,58,237,0.35)]">
+      <video
+        ref={videoRef}
+        className="w-full"
+        poster={previewPoster}
+        controls
+        muted={autoPlay}
+        loop={autoPlay}
+        playsInline
+        preload="metadata"
+        aria-label="Sample cinematic property marketing video"
+      >
+        <source src={previewVideo} type="video/mp4" />
+      </video>
+    </div>
+  );
+}
+
 const idealFor = [
   "Luxury vacation rentals",
   "Airbnb & VRBO properties",
@@ -57,6 +92,17 @@ export default function PropertyMarketing() {
       />
 
       <section className="py-16 sm:py-20">
+        <Container className="max-w-4xl">
+          <Reveal>
+            <PreviewVideo />
+            <p className="mt-4 text-center text-sm text-cf-gray-dim">
+              A sample of the kind of cinematic property film CyberFalcon Digital can create from your photos.
+            </p>
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="border-t border-cf-border py-16 sm:py-20">
         <Container className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal className="flex flex-col gap-5 text-base leading-relaxed text-cf-gray">
             <p>
