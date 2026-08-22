@@ -19,9 +19,8 @@ export const business = {
   foundedYear: 2024,
 };
 
-// Placeholder contact info — replace with real details before launch.
 export const contact = {
-  email: "hello@cyberfalcondigital.com",
+  email: "cyberfalcondigital@outlook.com",
   phone: "",
   formEndpoint: "",
 };
