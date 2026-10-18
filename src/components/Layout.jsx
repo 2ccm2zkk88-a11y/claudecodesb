@@ -7,7 +7,7 @@ export default function Layout() {
     <div className="flex min-h-screen flex-col bg-cf-bg">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-cf-purple focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-cf-gold focus:px-4 focus:py-2 focus:text-cf-bg"
       >
         Skip to main content
       </a>

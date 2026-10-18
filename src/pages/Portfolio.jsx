@@ -11,10 +11,10 @@ export default function Portfolio() {
     <>
       <SEO
         title="Portfolio"
-        description="Website projects built by CyberFalcon Digital."
+        description="Website projects built by CyberFalconDigital."
       />
 
-      <PageHero eyebrow="Portfolio" title="Built by CyberFalcon Digital" />
+      <PageHero eyebrow="Portfolio" title="Built by CyberFalconDigital" />
 
       <section className="py-16 sm:py-20">
         <Container>

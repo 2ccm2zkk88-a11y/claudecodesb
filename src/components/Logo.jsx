@@ -13,7 +13,7 @@ export default function Logo({ compact = false, className = "", markOnly = false
             CyberFalcon
           </span>
           {!compact && (
-            <span className="text-[0.6rem] font-bold tracking-[0.3em] text-[color:var(--cf-blue)]">
+            <span className="text-[0.6rem] font-bold tracking-[0.3em] cf-metallic-gold bg-clip-text text-transparent">
               DIGITAL
             </span>
           )}
@@ -25,8 +25,8 @@ export default function Logo({ compact = false, className = "", markOnly = false
   return (
     <Link
       to="/"
-      aria-label="CyberFalcon Digital — home"
-      className="inline-flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--cf-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05070D]"
+      aria-label="CyberFalconDigital — home"
+      className="inline-flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--cf-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05070D]"
     >
       {content}
     </Link>

@@ -1,4 +1,4 @@
-// Central configuration for CyberFalcon Digital.
+// Central configuration for CyberFalconDigital.
 // Update contact info, pricing, services, and portfolio projects here —
 // every page pulls from this single source of truth.
 
@@ -7,8 +7,8 @@ import klentzmanImage from "../assets/portfolio/klentzman-content-hub.jpg";
 import klentzmanSecretaryImage from "../assets/portfolio/klentzman-secretary-hub.jpg";
 
 export const business = {
-  name: "CyberFalcon Digital",
-  legalName: "CyberFalcon Digital",
+  name: "CyberFalconDigital",
+  legalName: "CyberFalconDigital",
   owner: "Sable R Banks",
   ownerTitle: "Founder & Webmaster",
   tagline: "Your Website. Managed.",

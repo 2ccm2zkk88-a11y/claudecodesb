@@ -30,7 +30,7 @@ export default function SEO({ title, description, image = DEFAULT_IMAGE, noIndex
   const location = useLocation();
 
   useEffect(() => {
-    const fullTitle = title ? `${title} | CyberFalcon Digital` : "CyberFalcon Digital — Your Website. Managed.";
+    const fullTitle = title ? `${title} | CyberFalconDigital` : "CyberFalconDigital — Your Website. Managed.";
     document.title = fullTitle;
 
     setMeta("name", "description", description);
@@ -44,7 +44,7 @@ export default function SEO({ title, description, image = DEFAULT_IMAGE, noIndex
     setMeta("property", "og:type", "website");
     setMeta("property", "og:url", canonicalUrl);
     setMeta("property", "og:image", image);
-    setMeta("property", "og:site_name", "CyberFalcon Digital");
+    setMeta("property", "og:site_name", "CyberFalconDigital");
 
     setMeta("name", "twitter:card", "summary_large_image");
     setMeta("name", "twitter:title", fullTitle);

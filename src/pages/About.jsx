@@ -14,13 +14,13 @@ export default function About() {
     <>
       <SEO
         title="About"
-        description="CyberFalcon Digital is the website development and webmaster services arm of the CyberFalcon technology brand, founded by Sable."
+        description="CyberFalconDigital is the website development and webmaster services arm of the CyberFalcon technology brand, founded by Sable."
       />
 
       <PageHero
         eyebrow="About"
         title="Technology expertise without the technical headache."
-        description="CyberFalcon Digital exists so organizations can have a professional, well-maintained website without needing to become web experts themselves."
+        description="CyberFalconDigital exists so organizations can have a professional, well-maintained website without needing to become web experts themselves."
       />
 
       <section className="py-16 sm:py-20">
@@ -28,13 +28,13 @@ export default function About() {
           <Reveal className="flex flex-col gap-6 text-base leading-relaxed text-cf-gray">
             <h2 className="text-2xl font-bold text-white">Meet the founder</h2>
             <p>
-              CyberFalcon Digital is founded and run by <span className="font-semibold text-white">Sable</span>,
-              who serves as Founder &amp; Webmaster. CyberFalcon Digital brings together website administration,
+              CyberFalconDigital is founded and run by <span className="font-semibold text-white">Sable</span>,
+              who serves as Founder &amp; Webmaster. CyberFalconDigital brings together website administration,
               hands-on technical work, and security-conscious practices to help organizations maintain a website
               they can rely on.
             </p>
             <p>
-              CyberFalcon Digital is part of the broader CyberFalcon brand — built on the same technology-first,
+              CyberFalconDigital is part of the broader CyberFalcon brand — built on the same technology-first,
               security-conscious approach — focused specifically on the website and webmaster side of that work:
               building, managing, and maintaining websites for organizations that need someone dependable handling
               it.
@@ -53,7 +53,7 @@ export default function About() {
               </div>
               <div>
                 <p className="text-lg font-semibold text-white">Sable</p>
-                <p className="text-sm text-cf-blue-bright">Founder & Webmaster</p>
+                <p className="text-sm text-cf-champagne">Founder & Webmaster</p>
               </div>
               <p className="text-xs text-cf-gray-dim">{business.name}</p>
             </GlowCard>
@@ -70,7 +70,7 @@ export default function About() {
             {trustPoints.map((point, i) => (
               <Reveal key={point.title} delay={i * 80}>
                 <GlowCard className="flex h-full flex-col gap-4 p-6">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cf-border bg-cf-bg-soft text-cf-purple">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cf-border bg-cf-bg-soft text-cf-gold">
                     <Icon name={point.icon} size={20} />
                   </div>
                   <h3 className="text-base font-semibold text-white">{point.title}</h3>

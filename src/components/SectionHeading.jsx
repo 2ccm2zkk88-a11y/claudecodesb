@@ -10,8 +10,8 @@ export default function SectionHeading({
   return (
     <div className={`flex flex-col gap-4 max-w-2xl ${alignClasses} ${className}`}>
       {eyebrow && (
-        <div className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-cf-blue-bright">
-          <span className="h-px w-8 bg-gradient-to-r from-cf-purple to-cf-blue" aria-hidden="true" />
+        <div className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-cf-champagne">
+          <span className="h-px w-8 bg-gradient-to-r from-cf-gold to-cf-gold-bright" aria-hidden="true" />
           {eyebrow}
         </div>
       )}

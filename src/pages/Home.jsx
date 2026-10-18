@@ -37,7 +37,7 @@ export default function Home() {
             <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
               Your Website.
               <br />
-              <span className="bg-gradient-to-r from-[#a78bfa] via-[#8b5cf6] to-[#3d8bff] bg-clip-text text-transparent">
+              <span className="cf-metallic-gold bg-clip-text text-transparent">
                 Managed.
               </span>
             </h1>
@@ -58,7 +58,7 @@ export default function Home() {
             <ul className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
               {trustPoints.map((point) => (
                 <li key={point.title} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cf-border bg-cf-surface text-cf-blue-bright">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cf-border bg-cf-surface text-cf-champagne">
                     <Icon name={point.icon} size={17} />
                   </span>
                   <span>
@@ -74,11 +74,11 @@ export default function Home() {
             <div className="relative aspect-square w-full max-w-md">
               <div
                 aria-hidden="true"
-                className="absolute inset-0 rounded-full border border-cf-purple/25"
-                style={{ boxShadow: "0 0 120px -20px rgba(139,92,246,0.35)" }}
+                className="absolute inset-0 rounded-full border border-cf-gold/25"
+                style={{ boxShadow: "0 0 120px -20px rgba(212,175,55,0.35)" }}
               />
-              <div aria-hidden="true" className="absolute inset-6 rounded-full border border-cf-blue/20" />
-              <div aria-hidden="true" className="absolute inset-12 rounded-full border border-cf-purple/15" />
+              <div aria-hidden="true" className="absolute inset-6 rounded-full border border-cf-gold-bright/20" />
+              <div aria-hidden="true" className="absolute inset-12 rounded-full border border-cf-gold/15" />
               <CircuitBackground variant="radial" opacity={0.5} glow className="rounded-full" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <FalconMark size={260} glow />
@@ -99,7 +99,7 @@ export default function Home() {
               description="Most organizations don't struggle because their website is bad — they struggle because nobody has the time, tools, or technical background to keep it current."
             />
             <p className="mt-6 max-w-lg text-base font-semibold text-white">
-              That's where CyberFalcon Digital comes in.
+              That's where CyberFalconDigital comes in.
             </p>
           </Reveal>
 
@@ -109,7 +109,7 @@ export default function Home() {
                 key={text}
                 className="flex items-start gap-3 rounded-xl border border-cf-border bg-cf-surface/50 p-4"
               >
-                <ProblemIcon size={18} className="mt-0.5 shrink-0 text-cf-purple" aria-hidden="true" />
+                <ProblemIcon size={18} className="mt-0.5 shrink-0 text-cf-gold" aria-hidden="true" />
                 <p className="text-sm leading-relaxed text-cf-gray">{text}</p>
               </div>
             ))}
@@ -166,7 +166,7 @@ export default function Home() {
               align="left"
               eyebrow="Website management"
               title="You don't need another employee. You need a webmaster."
-              description="Instead of hiring, training, and managing someone in-house, you can hand your website's day-to-day updates to CyberFalcon Digital and get back to running your organization."
+              description="Instead of hiring, training, and managing someone in-house, you can hand your website's day-to-day updates to CyberFalconDigital and get back to running your organization."
             />
             <div className="mt-7">
               <Button to="/website-management" variant="secondary" icon={false}>

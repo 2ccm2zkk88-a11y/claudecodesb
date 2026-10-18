@@ -13,7 +13,7 @@ export default function FAQItem({ question, answer, defaultOpen = false }) {
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-controls={id}
-          className="flex w-full items-center justify-between gap-4 py-5 text-left text-white transition-colors hover:text-cf-blue-bright"
+          className="flex w-full items-center justify-between gap-4 py-5 text-left text-white transition-colors hover:text-cf-champagne"
         >
           <span className="text-base font-semibold">{question}</span>
           <ChevronDown

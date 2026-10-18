@@ -18,7 +18,7 @@ const steps = [
   {
     icon: Wrench,
     title: "We handle it",
-    description: "CyberFalcon Digital makes the update following security-conscious, professional practices.",
+    description: "CyberFalconDigital makes the update following security-conscious, professional practices.",
   },
   {
     icon: CheckCircle2,
@@ -34,7 +34,7 @@ const faqs = [
       "Content updates, announcements, event listings, staff or team changes, document uploads, image swaps, small layout adjustments, and general troubleshooting all fall under website management.",
   },
   {
-    question: "How do I send requests to CyberFalcon Digital?",
+    question: "How do I send requests to CyberFalconDigital?",
     answer:
       "Whatever is easiest for you — email, a shared form, or a quick message. During onboarding we'll agree on the process that works best for your organization.",
   },
@@ -55,13 +55,13 @@ export default function WebsiteManagement() {
     <>
       <SEO
         title="Website Management"
-        description="Outsource your day-to-day website updates to CyberFalcon Digital. Ongoing webmaster support so your website stays current without hiring in-house."
+        description="Outsource your day-to-day website updates to CyberFalconDigital. Ongoing webmaster support so your website stays current without hiring in-house."
       />
 
       <PageHero
         eyebrow="Website Management"
         title="You don't need another employee. You need a webmaster."
-        description="Hiring, training, and managing an in-house webmaster is a lot to take on. CyberFalcon Digital handles the ongoing care of your website instead — so it's always current, without adding to your workload."
+        description="Hiring, training, and managing an in-house webmaster is a lot to take on. CyberFalconDigital handles the ongoing care of your website instead — so it's always current, without adding to your workload."
       />
 
       <section className="py-16 sm:py-20">
@@ -90,7 +90,7 @@ export default function WebsiteManagement() {
               <Reveal key={step.title} delay={i * 80}>
                 <GlowCard className="flex h-full flex-col gap-4 p-6">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-cf-border bg-cf-bg-soft text-cf-blue-bright">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-cf-border bg-cf-bg-soft text-cf-champagne">
                       <step.icon size={19} aria-hidden="true" />
                     </span>
                     <span className="font-mono text-xs font-semibold text-cf-gray-dim">STEP {i + 1}</span>

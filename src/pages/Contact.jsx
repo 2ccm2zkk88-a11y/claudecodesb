@@ -21,7 +21,7 @@ const initialState = {
 };
 
 const inputClass =
-  "w-full rounded-lg border border-cf-border bg-cf-bg-soft px-3.5 py-2.5 text-sm text-white placeholder:text-cf-gray-dim transition-colors focus:border-cf-purple focus:outline-none";
+  "w-full rounded-lg border border-cf-border bg-cf-bg-soft px-3.5 py-2.5 text-sm text-white placeholder:text-cf-gray-dim transition-colors focus:border-cf-gold focus:outline-none";
 
 const labelClass = "mb-1.5 block text-sm font-medium text-white";
 
@@ -104,9 +104,9 @@ export default function Contact() {
   if (status === "success") {
     return (
       <>
-        <SEO title="Request a Quote" description="Request a website quote from CyberFalcon Digital." />
+        <SEO title="Request a Quote" description="Request a website quote from CyberFalconDigital." />
         <Container className="flex min-h-[60vh] flex-col items-center justify-center gap-5 py-24 text-center">
-          <CheckCircle2 size={48} className="text-cf-blue-bright" aria-hidden="true" />
+          <CheckCircle2 size={48} className="text-cf-champagne" aria-hidden="true" />
           <h1 className="text-2xl font-bold text-white">Thanks — your quote request is on its way.</h1>
           <p className="max-w-md text-cf-gray">
             {contact.formEndpoint
@@ -125,7 +125,7 @@ export default function Contact() {
     <>
       <SEO
         title="Request a Quote"
-        description="Tell us about your website project and get a quote from CyberFalcon Digital."
+        description="Tell us about your website project and get a quote from CyberFalconDigital."
       />
 
       <PageHero
@@ -141,7 +141,7 @@ export default function Contact() {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className={labelClass}>
-                    Name <span className="text-cf-blue-bright">*</span>
+                    Name <span className="text-cf-champagne">*</span>
                   </label>
                   <input
                     id="name"
@@ -175,7 +175,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="email" className={labelClass}>
-                    Email <span className="text-cf-blue-bright">*</span>
+                    Email <span className="text-cf-champagne">*</span>
                   </label>
                   <input
                     id="email"
@@ -218,19 +218,19 @@ export default function Contact() {
 
               <fieldset>
                 <legend className={labelClass}>
-                  What do you need help with? <span className="text-cf-blue-bright">*</span>
+                  What do you need help with? <span className="text-cf-champagne">*</span>
                 </legend>
                 <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                   {serviceOptions.map((service) => (
                     <label
                       key={service}
-                      className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-cf-border bg-cf-bg-soft px-3.5 py-2.5 text-sm text-cf-gray transition-colors has-[:checked]:border-cf-purple has-[:checked]:text-white"
+                      className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-cf-border bg-cf-bg-soft px-3.5 py-2.5 text-sm text-cf-gray transition-colors has-[:checked]:border-cf-gold has-[:checked]:text-white"
                     >
                       <input
                         type="checkbox"
                         checked={form.services.includes(service)}
                         onChange={() => toggleService(service)}
-                        className="h-4 w-4 shrink-0 rounded border-cf-border bg-cf-bg accent-[#8b5cf6]"
+                        className="h-4 w-4 shrink-0 rounded border-cf-border bg-cf-bg accent-cf-gold"
                       />
                       {service}
                     </label>
@@ -280,7 +280,7 @@ export default function Contact() {
                         value={option}
                         checked={form.needsManagement === option}
                         onChange={update("needsManagement")}
-                        className="h-4 w-4 border-cf-border bg-cf-bg accent-[#8b5cf6]"
+                        className="h-4 w-4 border-cf-border bg-cf-bg accent-cf-gold"
                       />
                       {option}
                     </label>
@@ -318,7 +318,7 @@ export default function Contact() {
               <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">Prefer email?</h2>
               <a
                 href={`mailto:${contact.email}`}
-                className="flex items-center gap-2.5 text-sm text-cf-blue-bright hover:underline"
+                className="flex items-center gap-2.5 text-sm text-cf-champagne hover:underline"
               >
                 <Mail size={16} aria-hidden="true" />
                 {contact.email}

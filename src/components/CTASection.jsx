@@ -15,7 +15,7 @@ export default function CTASection({
       <CircuitBackground variant="radial" opacity={0.22} glow />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-b from-cf-purple/10 via-transparent to-cf-blue/5"
+        className="absolute inset-0 bg-gradient-to-b from-cf-gold/10 via-transparent to-cf-gold-bright/5"
       />
       <Container className="relative flex flex-col items-center gap-6 text-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-white text-balance max-w-2xl">{title}</h2>

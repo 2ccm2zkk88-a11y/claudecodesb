@@ -28,21 +28,21 @@ export default function CircuitBackground({
     >
       <defs>
         <pattern id={patternId} width="180" height="180" patternUnits="userSpaceOnUse">
-          <g stroke="#8b5cf6" strokeWidth="1" fill="none">
+          <g stroke="var(--color-cf-gold)" strokeWidth="1" fill="none">
             <path d="M0 40 H60 V90 H140" />
             <path d="M20 0 V25 H70 V70" opacity="0.7" />
             <path d="M180 100 H120 V150 H60 V180" opacity="0.8" />
-            <path d="M110 20 H160 V60" opacity="0.6" stroke="#3d8bff" />
-            <path d="M0 130 H30 V170" opacity="0.6" stroke="#3d8bff" />
+            <path d="M110 20 H160 V60" opacity="0.6" stroke="var(--color-cf-gold-bright)" />
+            <path d="M0 130 H30 V170" opacity="0.6" stroke="var(--color-cf-gold-bright)" />
           </g>
-          <g fill="#8b5cf6">
+          <g fill="var(--color-cf-gold)">
             <circle cx="60" cy="40" r="2.5" />
             <circle cx="140" cy="90" r="2.5" />
             <circle cx="70" cy="25" r="2" />
             <circle cx="120" cy="100" r="2.5" />
             <circle cx="60" cy="180" r="2" />
           </g>
-          <g fill="#3d8bff">
+          <g fill="var(--color-cf-gold-bright)">
             <circle cx="160" cy="20" r="2" />
             <circle cx="30" cy="130" r="2" />
           </g>
@@ -68,9 +68,9 @@ export default function CircuitBackground({
       />
       {glow && (
         <>
-          <circle cx="20%" cy="30%" r="2.5" fill="#5ec8ff" className="cf-node-pulse" />
-          <circle cx="78%" cy="62%" r="2.5" fill="#8b5cf6" className="cf-node-pulse" style={{ animationDelay: "1.1s" }} />
-          <circle cx="55%" cy="18%" r="2" fill="#8b5cf6" className="cf-node-pulse" style={{ animationDelay: "2s" }} />
+          <circle cx="20%" cy="30%" r="2.5" fill="var(--color-cf-champagne)" className="cf-node-pulse" />
+          <circle cx="78%" cy="62%" r="2.5" fill="var(--color-cf-gold)" className="cf-node-pulse" style={{ animationDelay: "1.1s" }} />
+          <circle cx="55%" cy="18%" r="2" fill="var(--color-cf-gold)" className="cf-node-pulse" style={{ animationDelay: "2s" }} />
         </>
       )}
     </svg>

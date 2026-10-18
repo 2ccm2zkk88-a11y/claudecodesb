@@ -33,7 +33,7 @@ export default function RequestQueue() {
     <div
       className="relative rounded-2xl border border-cf-border bg-cf-surface/70 p-5 sm:p-6"
       role="group"
-      aria-label="Example website update requests handled by CyberFalcon Digital"
+      aria-label="Example website update requests handled by CyberFalconDigital"
     >
       <div className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-cf-gray-dim">
         <Inbox size={14} aria-hidden="true" />
@@ -48,7 +48,7 @@ export default function RequestQueue() {
               key={request}
               className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-sm transition-all duration-500 ${
                 isHandled
-                  ? "border-cf-purple/40 bg-cf-bg-soft text-white"
+                  ? "border-cf-gold/40 bg-cf-bg-soft text-white"
                   : "border-cf-border/60 bg-transparent text-cf-gray-dim opacity-60"
               }`}
             >
@@ -57,7 +57,7 @@ export default function RequestQueue() {
                 size={17}
                 aria-hidden="true"
                 className={`shrink-0 transition-all duration-500 ${
-                  isHandled ? "text-cf-blue-bright scale-100 opacity-100" : "scale-75 opacity-0"
+                  isHandled ? "text-cf-champagne scale-100 opacity-100" : "scale-75 opacity-0"
                 }`}
               />
             </li>
@@ -66,7 +66,7 @@ export default function RequestQueue() {
       </ul>
 
       <p className="mt-5 border-t border-cf-border pt-4 text-center text-sm font-medium text-cf-gray">
-        Send it to <span className="text-white">CyberFalcon Digital.</span>
+        Send it to <span className="text-white">CyberFalconDigital.</span>
       </p>
     </div>
   );

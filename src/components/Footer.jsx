@@ -25,7 +25,7 @@ export default function Footer() {
     <footer className="relative border-t border-cf-border bg-cf-bg-soft">
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cf-purple/50 to-transparent"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cf-gold/50 to-transparent"
       />
       <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-4 sm:col-span-2 lg:col-span-2">
@@ -38,7 +38,7 @@ export default function Footer() {
           <ul className="flex flex-col gap-2.5">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link to={item.href} className="text-sm text-cf-gray transition-colors hover:text-cf-blue-bright">
+                <Link to={item.href} className="text-sm text-cf-gray transition-colors hover:text-cf-champagne">
                   {item.label}
                 </Link>
               </li>
@@ -51,14 +51,14 @@ export default function Footer() {
           <ul className="flex flex-col gap-2.5 text-sm text-cf-gray">
             {contact.email && (
               <li>
-                <a href={social.email} className="transition-colors hover:text-cf-blue-bright">
+                <a href={social.email} className="transition-colors hover:text-cf-champagne">
                   {contact.email}
                 </a>
               </li>
             )}
             {contact.phone && (
               <li>
-                <a href={`tel:${contact.phone}`} className="transition-colors hover:text-cf-blue-bright">
+                <a href={`tel:${contact.phone}`} className="transition-colors hover:text-cf-champagne">
                   {contact.phone}
                 </a>
               </li>
@@ -74,7 +74,7 @@ export default function Footer() {
                     target={key === "email" ? undefined : "_blank"}
                     rel={key === "email" ? undefined : "noopener noreferrer"}
                     aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-cf-border text-cf-gray transition-colors hover:border-cf-purple hover:text-cf-blue-bright"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-cf-border text-cf-gray transition-colors hover:border-cf-gold hover:text-cf-champagne"
                   >
                     <Icon size={16} aria-hidden="true" />
                   </a>
@@ -91,10 +91,10 @@ export default function Footer() {
             © {year} {business.name}. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <Link to="/privacy-policy" className="transition-colors hover:text-cf-blue-bright">
+            <Link to="/privacy-policy" className="transition-colors hover:text-cf-champagne">
               Privacy Policy
             </Link>
-            <Link to="/terms-of-service" className="transition-colors hover:text-cf-blue-bright">
+            <Link to="/terms-of-service" className="transition-colors hover:text-cf-champagne">
               Terms of Service
             </Link>
           </div>

@@ -38,13 +38,13 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-cf-border bg-cf-bg/85 backdrop-blur-md shadow-[0_1px_0_0_rgba(139,92,246,0.25)]"
+          ? "border-b border-cf-border bg-cf-bg/85 backdrop-blur-md shadow-[0_1px_0_0_rgba(212,175,55,0.25)]"
           : "border-b border-transparent bg-transparent"
       }`}
     >
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cf-purple/60 to-transparent"
+        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cf-gold/60 to-transparent"
       />
       <Container className="flex h-18 items-center justify-between py-3.5">
         <Logo />

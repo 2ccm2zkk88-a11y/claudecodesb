@@ -11,13 +11,13 @@ export default function Services() {
     <>
       <SEO
         title="Services"
-        description="Website development, redesign, management, content updates, maintenance, and technical support from CyberFalcon Digital."
+        description="Website development, redesign, management, content updates, maintenance, and technical support from CyberFalconDigital."
       />
 
       <PageHero
         eyebrow="Services"
         title="Everything your website needs, handled by one team."
-        description="From building a new site to keeping an existing one current and running smoothly, CyberFalcon Digital covers the full lifecycle of a professional website."
+        description="From building a new site to keeping an existing one current and running smoothly, CyberFalconDigital covers the full lifecycle of a professional website."
       />
 
       <section className="py-16 sm:py-20">

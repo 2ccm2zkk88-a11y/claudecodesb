@@ -38,7 +38,7 @@ const deliverables = [
 
 function PreviewVideo() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-cf-border bg-cf-surface/40 shadow-[0_0_0_1px_rgba(139,92,246,0.15),0_20px_60px_-20px_rgba(124,58,237,0.35)]">
+    <div className="overflow-hidden rounded-2xl border border-cf-border bg-cf-surface/40 shadow-[0_0_0_1px_rgba(212,175,55,0.15),0_20px_60px_-20px_rgba(212,175,55,0.35)]">
       <video
         className="w-full"
         poster={previewPoster}
@@ -80,7 +80,7 @@ export default function PropertyMarketing() {
           <Reveal>
             <PreviewVideo />
             <p className="mt-4 text-center text-sm text-cf-gray-dim">
-              A sample of the kind of cinematic property film CyberFalcon Digital can create from your photos.
+              A sample of the kind of cinematic property film CyberFalconDigital can create from your photos.
             </p>
           </Reveal>
         </Container>
@@ -90,7 +90,7 @@ export default function PropertyMarketing() {
         <Container className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal className="flex flex-col gap-5 text-base leading-relaxed text-cf-gray">
             <p>
-              CyberFalcon Digital transforms static property images into polished promotional films designed to
+              CyberFalconDigital transforms static property images into polished promotional films designed to
               showcase the atmosphere, architecture, amenities, and standout features of your space — without the
               need to schedule a traditional video shoot.
             </p>
@@ -103,7 +103,7 @@ export default function PropertyMarketing() {
               <ul className="flex flex-col gap-3">
                 {idealFor.map((item) => (
                   <li key={item} className="flex items-center gap-2.5 text-sm text-cf-gray">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cf-purple" aria-hidden="true" />
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cf-gold" aria-hidden="true" />
                     {item}
                   </li>
                 ))}
@@ -122,7 +122,7 @@ export default function PropertyMarketing() {
             {deliverables.map((item, i) => (
               <Reveal key={item.title} delay={i * 60}>
                 <GlowCard className="flex h-full flex-col gap-3.5 p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cf-border bg-cf-bg-soft text-cf-purple">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cf-border bg-cf-bg-soft text-cf-gold">
                     <item.icon size={22} aria-hidden="true" />
                   </div>
                   <h3 className="text-lg font-semibold text-white">{item.title}</h3>

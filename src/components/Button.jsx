@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react";
 
 const VARIANTS = {
   primary:
-    "bg-gradient-to-r from-[#7c3aed] to-[#3d8bff] text-white shadow-[0_0_0_1px_rgba(139,92,246,0.4),0_8px_24px_-8px_rgba(124,58,237,0.6)] hover:shadow-[0_0_0_1px_rgba(139,92,246,0.6),0_10px_32px_-6px_rgba(124,58,237,0.75)] hover:-translate-y-0.5",
+    "cf-metallic-gold text-cf-bg shadow-[0_0_0_1px_rgba(212,175,55,0.4),0_8px_24px_-8px_rgba(212,175,55,0.6)] hover:shadow-[0_0_0_1px_rgba(212,175,55,0.6),0_10px_32px_-6px_rgba(212,175,55,0.75)] hover:-translate-y-0.5",
   secondary:
-    "bg-transparent text-white border border-cf-border hover:border-cf-purple/70 hover:bg-white/5",
+    "bg-transparent text-white border border-cf-border hover:border-cf-gold/70 hover:bg-white/5",
   ghost: "bg-transparent text-cf-gray hover:text-white",
 };
 

@@ -10,18 +10,18 @@
   --color-cf-surface: #0d1424;
   --color-cf-surface-hi: #121b30;
   --color-cf-border: #1e2a45;
-  --color-cf-purple: #8b5cf6;
-  --color-cf-purple-deep: #5b21d6;
-  --color-cf-blue: #3d8bff;
-  --color-cf-blue-bright: #5ec8ff;
+  --color-cf-gold: #D4AF37;
+  --color-cf-gold-deep: #996515;
+  --color-cf-gold-bright: #FFD700;
+  --color-cf-champagne: #FFE08A;
   --color-cf-white: #f4f6fb;
   --color-cf-gray: #9aa5b8;
   --color-cf-gray-dim: #6b7690;
 }
 
 :root {
-  --cf-purple: #8b5cf6;
-  --cf-blue: #3d8bff;
+  --cf-gold: #D4AF37;
+  --cf-gold-bright: #FFD700;
   color-scheme: dark;
 }
 
@@ -38,7 +38,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(139, 92, 246, 0.35);
+  background-color: rgba(212, 175, 55, 0.35);
   color: #ffffff;
 }
 
@@ -103,4 +103,9 @@ body {
 
 .cf-trace-flow {
   animation: cf-drift 6s linear infinite;
+}
+
+/* Shared metallic treatment for brand wordmarks, hero text, and CTAs. */
+.cf-metallic-gold {
+  background-image: linear-gradient(110deg, var(--color-cf-gold) 0%, var(--color-cf-champagne) 30%, var(--color-cf-gold-bright) 52%, var(--color-cf-gold) 78%, var(--color-cf-champagne) 100%);
 }

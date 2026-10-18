@@ -34,7 +34,7 @@ export default function PortfolioCard({ project }) {
             {services.map((service) => (
               <li
                 key={service}
-                className="rounded-full border border-cf-border bg-cf-bg-soft px-3 py-1 text-xs font-medium text-cf-blue-bright"
+                className="rounded-full border border-cf-border bg-cf-bg-soft px-3 py-1 text-xs font-medium text-cf-champagne"
               >
                 {service}
               </li>
@@ -46,7 +46,7 @@ export default function PortfolioCard({ project }) {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-auto inline-flex items-center gap-2 self-start text-sm font-semibold text-white transition-colors hover:text-cf-blue-bright"
+          className="mt-auto inline-flex items-center gap-2 self-start text-sm font-semibold text-white transition-colors hover:text-cf-champagne"
         >
           View Project
           <ExternalLink size={15} aria-hidden="true" />

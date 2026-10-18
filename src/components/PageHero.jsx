@@ -9,8 +9,8 @@ export default function PageHero({ eyebrow, title, description }) {
       <CircuitBackground variant="radial" opacity={0.16} />
       <Container className="relative max-w-3xl">
         {eyebrow && (
-          <div className="mb-4 flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-cf-blue-bright">
-            <span className="h-px w-8 bg-gradient-to-r from-cf-purple to-cf-blue" aria-hidden="true" />
+          <div className="mb-4 flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-cf-champagne">
+            <span className="h-px w-8 bg-gradient-to-r from-cf-gold to-cf-gold-bright" aria-hidden="true" />
             {eyebrow}
           </div>
         )}
