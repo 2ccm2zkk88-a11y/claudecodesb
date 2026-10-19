@@ -5,6 +5,7 @@
 import cyberfalconGrcImage from "../assets/portfolio/cyberfalcongrc.jpg";
 import klentzmanImage from "../assets/portfolio/klentzman-content-hub.jpg";
 import klentzmanSecretaryImage from "../assets/portfolio/klentzman-secretary-hub.jpg";
+import abcAcademyImage from "../assets/portfolio/abc-academy-sugar-land.png";
 
 export const business = {
   name: "CyberFalconDigital",
@@ -191,6 +192,15 @@ export const pricingPlans = [
 ];
 
 export const portfolioProjects = [
+  {
+    id: "abc-academy-sugar-land",
+    title: "ABC Academy | Sugar Land",
+    description:
+      "Completed client website for ABC Academy in Sugar Land, showcasing its child care and preschool programs and inviting families to plan a visit.",
+    services: ["Website Development", "Client Website"],
+    url: "https://abc-academy-sugar-land.sableraebanks.chatgpt.site/#visit",
+    image: abcAcademyImage,
+  },
   {
     id: "klentzman-content-hub",
     title: "Public School Content Hub",
