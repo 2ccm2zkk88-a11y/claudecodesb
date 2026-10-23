@@ -36,7 +36,7 @@ export default function Pricing() {
     <>
       <SEO
         title="Pricing"
-        description="Simple, transparent website management plans starting at $99/month. Custom website development quoted separately."
+        description="Simple, transparent website management plans starting at $50/month. Custom website development quoted separately."
       />
 
       <PageHero

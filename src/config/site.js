@@ -155,7 +155,7 @@ export const pricingPlans = [
   {
     id: "website-care",
     name: "Website Care",
-    price: 99,
+    price: 50,
     isFeatured: false,
     features: [
       "Routine content updates",
@@ -167,7 +167,7 @@ export const pricingPlans = [
   {
     id: "website-management",
     name: "Website Management",
-    price: 199,
+    price: 150,
     isFeatured: true,
     featuredLabel: "Most Popular",
     features: [
@@ -180,7 +180,7 @@ export const pricingPlans = [
   {
     id: "webmaster-pro",
     name: "Webmaster Pro",
-    price: 299,
+    price: 250,
     isFeatured: false,
     features: [
       "Everything in Website Management",
