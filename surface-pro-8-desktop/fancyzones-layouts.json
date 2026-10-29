@@ -1,0 +1,34 @@
+{
+  "custom-layouts": [
+    {
+      "uuid": "{6B1D9E2A-3C4F-4E8B-9A71-5F2D8C0B3E11}",
+      "name": "SP8 Focus + Stack",
+      "type": "grid",
+      "info": {
+        "rows": 2,
+        "rows-percentage": [5000, 5000],
+        "columns": 2,
+        "columns-percentage": [6200, 3800],
+        "cell-child-map": [[0, 1], [0, 2]],
+        "show-spacing": true,
+        "spacing": 8,
+        "sensitivity-radius": 20
+      }
+    },
+    {
+      "uuid": "{9C4E7F10-2B6A-4D3E-8F95-1A0C7B2D4E22}",
+      "name": "SP8 Work + Reference",
+      "type": "grid",
+      "info": {
+        "rows": 1,
+        "rows-percentage": [10000],
+        "columns": 2,
+        "columns-percentage": [6000, 4000],
+        "cell-child-map": [[0, 1]],
+        "show-spacing": true,
+        "spacing": 8,
+        "sensitivity-radius": 20
+      }
+    }
+  ]
+}
