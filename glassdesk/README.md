@@ -62,3 +62,22 @@ powershell -ExecutionPolicy Bypass -File .\Undo-GlassDesk.ps1
 This puts back the wallpaper, transparency and taskbar settings you had before the
 **first** install, and removes the widgets. Rainmeter and Seelen UI stay installed;
 remove them in Settings > Apps if you want them gone.
+
+## Recycle Bin and see-through desktop icons
+
+Windows has no opacity setting for desktop icons. This script hides the real icons and
+redraws your desktop shortcuts as a Rainmeter widget at about 50% opacity. Double-click to
+open, same as before. Hovering an icon makes it solid.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\Set-DesktopIcons.ps1
+```
+
+- Only hide the Recycle Bin: add `-RecycleBinOnly`
+- Put everything back: add `-Restore`
+- Change the opacity: edit `IconAlpha` (0 to 255) in
+  `Documents\Rainmeter\Skins\GlassDesk\Icons\Icons.ini`, then right-click the icons and choose **Refresh skin**
+
+Limits: it shows the first 12 items on your own Desktop folder. Shortcuts that Windows put
+on the shared "Public" desktop for all users don't appear. Files you drop on the desktop show
+up within a couple of seconds, but you can't drag icons onto exact spots.
