@@ -50,8 +50,21 @@ if (-not $RecycleBinOnly) {
         Write-Warning 'GlassDesk widgets are not installed, so the see-through icons were skipped. Run Install-GlassDesk.ps1 first.'
     }
     else {
+        # Keep opacity and size the user already set in an installed copy.
+        $iconsIni = Join-Path $skinRoot 'Icons\Icons.ini'
+        $keep = @{}
+        if (Test-Path $iconsIni) {
+            foreach ($line in Get-Content $iconsIni) {
+                if ($line -match '^(IconAlpha|TextAlpha|IconScale)=(.+)$') { $keep[$Matches[1]] = $Matches[2] }
+            }
+        }
         # Copy only the Icons widget so your edited Variables.inc is left alone.
         Copy-Item (Join-Path $here 'skins\GlassDesk\Icons') $skinRoot -Recurse -Force
+        if ($keep.Count) {
+            $text = Get-Content $iconsIni -Raw
+            foreach ($k in $keep.Keys) { $text = $text -replace "(?m)^$k=.*$", "$k=$($keep[$k])" }
+            [IO.File]::WriteAllText($iconsIni, $text)
+        }
         New-Item -ItemType Directory -Path (Join-Path $skinRoot '@Resources\Icons') -Force | Out-Null
         # Desktop may be redirected (OneDrive), so ask Windows for the real path.
         $desktop = [Environment]::GetFolderPath('Desktop').TrimEnd('\') + '\'
