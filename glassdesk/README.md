@@ -81,3 +81,17 @@ powershell -ExecutionPolicy Bypass -File .\Set-DesktopIcons.ps1
 Limits: it shows the first 12 items on your own Desktop folder. Shortcuts that Windows put
 on the shared "Public" desktop for all users don't appear. Files you drop on the desktop show
 up within a couple of seconds, but you can't drag icons onto exact spots.
+
+## Live clock on a printed menu bar
+
+For a wallpaper with a menu bar printed on it (the time baked into the image is erased first),
+`Set-MenuBarClock.ps1` adds a live day, date and time in the same spot. Set the matching
+wallpaper first, then run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\Set-MenuBarClock.ps1
+```
+
+Click the time to open the Windows calendar and notifications. If the text sits a little off,
+edit `ClockX`, `ClockY` or `ClockSize` in `Documents\Rainmeter\Skins\GlassDesk\MenuClock\MenuClock.ini`
+and choose **Refresh skin**.
