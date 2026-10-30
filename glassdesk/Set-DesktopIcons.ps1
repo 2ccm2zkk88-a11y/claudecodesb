@@ -53,7 +53,8 @@ if (-not $RecycleBinOnly) {
         # Keep opacity and size the user already set in an installed copy.
         $iconsIni = Join-Path $skinRoot 'Icons\Icons.ini'
         $keep = @{}
-        if (Test-Path $iconsIni) {
+        $firstInstall = -not (Test-Path $iconsIni)
+        if (-not $firstInstall) {
             foreach ($line in Get-Content $iconsIni) {
                 if ($line -match '^(IconAlpha|TextAlpha|IconScale)=(.+)$') { $keep[$Matches[1]] = $Matches[2] }
             }
@@ -66,6 +67,8 @@ if (-not $RecycleBinOnly) {
             [IO.File]::WriteAllText($iconsIni, $text)
         }
         New-Item -ItemType Directory -Path (Join-Path $skinRoot '@Resources\Icons') -Force | Out-Null
+        $overrides = Join-Path $skinRoot '@Resources\IconOverrides'
+        New-Item -ItemType Directory -Path $overrides -Force | Out-Null
         # Desktop may be redirected (OneDrive), so ask Windows for the real path.
         $desktop = [Environment]::GetFolderPath('Desktop').TrimEnd('\') + '\'
         "[Variables]`r`nDesktopPath=$desktop" | Set-Content (Join-Path $skinRoot '@Resources\Desktop.inc') -Encoding ASCII
@@ -76,11 +79,18 @@ if (-not $RecycleBinOnly) {
         Start-Sleep -Seconds 2
         & $rainmeter '!ActivateConfig' 'GlassDesk\Icons' 'Icons.ini'
         Start-Sleep -Milliseconds 400
-        & $rainmeter '!Move' '24' '24' 'GlassDesk\Icons'
+        # Only place it on first install, so a rerun keeps wherever you dragged it.
+        if ($firstInstall) { & $rainmeter '!Move' '24' '24' 'GlassDesk\Icons' }
         & $rainmeter '!ZPos' '-2' 'GlassDesk\Icons'
         Write-Host '  [ok]   Desktop icons now see-through (top-left; drag to move)'
+        Write-Host "  [info] Custom icons: put a picture named like the item (e.g. 'Beaucoup Banks.png') in"
+        Write-Host "         $overrides"
     }
 }
 
 Stop-Process -Name explorer -Force
+if ($overrides) {
+    Start-Sleep -Seconds 3
+    Start-Process explorer.exe $overrides
+}
 Write-Host 'Done. Explorer restarted.'

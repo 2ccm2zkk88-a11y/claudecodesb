@@ -78,6 +78,10 @@ powershell -ExecutionPolicy Bypass -File .\Set-DesktopIcons.ps1
 - Change the opacity: edit `IconAlpha` (0 to 255), or the size: edit `IconScale` (1 = normal, 0.75 = smaller, 0.5 = half), in
   `Documents\Rainmeter\Skins\GlassDesk\Icons\Icons.ini`, then right-click the icons and choose **Refresh skin**
 
+Custom icon for one item: put a PNG, ICO or JPG named exactly like the item (for example
+`Beaucoup Banks.png`) in `Documents\Rainmeter\Skins\GlassDesk\@Resources\IconOverrides`.
+It shows up within a couple of seconds.
+
 Limits: it shows the first 12 items on your own Desktop folder. Shortcuts that Windows put
 on the shared "Public" desktop for all users don't appear. Files you drop on the desktop show
 up within a couple of seconds, but you can't drag icons onto exact spots.
